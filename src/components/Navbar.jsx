@@ -1,487 +1,1013 @@
+
 import React, { useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import {
+  NavLink,
+  Link,
+  useLocation,
+} from "react-router-dom";
+
 import {
   FiMenu,
   FiX,
   FiArrowUpRight,
-  FiCode,
-  FiSmartphone,
-  FiServer,
-  FiCpu,
   FiChevronRight,
+  FiHome,
+  FiLayers,
+  FiBriefcase,
+  FiUsers,
+  FiGitBranch,
+  FiHelpCircle,
 } from "react-icons/fi";
 
+/* ============================================================
+   NAVIGATION DATA
+============================================================ */
+
 const links = [
-  { label: "Home", path: "/", icon: FiCode },
-  { label: "Services", path: "/services", icon: FiSmartphone },
-  { label: "Work", path: "/work", icon: FiServer },
-  { label: "About", path: "/about", icon: FiCpu },
-  { label: "Process", path: "/process", icon: FiChevronRight },
-  { label: "FAQ", path: "/faq", icon: FiChevronRight },
+  {
+    label: "Home",
+    path: "/",
+    icon: FiHome,
+  },
+  {
+    label: "Services",
+    path: "/services",
+    icon: FiLayers,
+  },
+  {
+    label: "Work",
+    path: "/work",
+    icon: FiBriefcase,
+  },
+  {
+    label: "About",
+    path: "/about",
+    icon: FiUsers,
+  },
+  {
+    label: "Process",
+    path: "/process",
+    icon: FiGitBranch,
+  },
+  {
+    label: "FAQ",
+    path: "/faq",
+    icon: FiHelpCircle,
+  },
 ];
 
+/* ============================================================
+   NAVBAR
+============================================================ */
+
 export default function Navbar() {
+  const location = useLocation();
+
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  /* ==========================================================
+     SCROLL BEHAVIOR
+  ========================================================== */
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
 
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+      setScrolled(currentScrollY > 20);
 
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+      /*
+       * Hide navbar while scrolling DOWN.
+       * Show navbar while scrolling UP.
+       */
+      if (currentScrollY > 120) {
+        if (currentScrollY > lastScrollY + 8) {
+          setHidden(true);
+        } else if (currentScrollY < lastScrollY - 8) {
+          setHidden(false);
+        }
+      } else {
+        setHidden(false);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
+
+  /* ==========================================================
+     CLOSE MOBILE MENU WHEN ROUTE CHANGES
+  ========================================================== */
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    setOpen(false);
+    setHidden(false);
+  }, [location.pathname]);
+
+  /* ==========================================================
+     LOCK BODY SCROLL WHEN MENU IS OPEN
+  ========================================================== */
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
 
     return () => {
       document.body.style.overflow = "";
     };
   }, [open]);
 
-  const closeMenu = () => setOpen(false);
+  /* ==========================================================
+     CLOSE MENU WITH ESC
+  ========================================================== */
+
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
 
   return (
     <>
+      {/* ======================================================
+          NAVBAR ANIMATIONS
+      ====================================================== */}
+
       <style>{`
-        @keyframes odShine {
+        @keyframes odNavbarShine {
           0% {
-            transform: translateX(-170%) skewX(-18deg);
+            transform: translateX(-180%) skewX(-18deg);
+            opacity: 0;
           }
-          45%, 100% {
+
+          15% {
+            opacity: 0.7;
+          }
+
+          55%,
+          100% {
             transform: translateX(480%) skewX(-18deg);
+            opacity: 0;
           }
         }
 
-        @keyframes odLogoSpin {
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        @keyframes odPulse {
-          0%, 100% {
-            opacity: .3;
-            transform: scale(.94);
-          }
-          50% {
-            opacity: .75;
-            transform: scale(1.08);
-          }
-        }
-
-        @keyframes odDrawerIn {
+        @keyframes odMobileMenu {
           from {
             opacity: 0;
-            transform: translateX(100%);
+            transform: translateY(25px) scale(0.97);
           }
+
           to {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateY(0) scale(1);
           }
         }
 
-        @keyframes odDrawerItem {
+        @keyframes odBackdrop {
           from {
             opacity: 0;
-            transform: translateX(25px);
           }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
 
-        @keyframes odOverlay {
-          from {
-            opacity: 0;
-          }
           to {
             opacity: 1;
           }
         }
 
-        @keyframes odFloat {
-          0%, 100% {
+        @keyframes odMenuItem {
+          from {
+            opacity: 0;
+            transform: translateY(8px);
+          }
+
+          to {
+            opacity: 1;
             transform: translateY(0);
           }
+        }
+
+        @keyframes odLogoGlow {
+          0%,
+          100% {
+            box-shadow:
+              0 0 0 rgba(37, 99, 235, 0),
+              0 8px 25px rgba(37, 99, 235, 0.18);
+          }
+
           50% {
-            transform: translateY(-8px);
+            box-shadow:
+              0 0 22px rgba(6, 182, 212, 0.22),
+              0 8px 30px rgba(37, 99, 235, 0.25);
           }
         }
 
-        .od-shine {
-          animation: odShine 4.5s cubic-bezier(.4,0,.2,1) infinite;
+        .od-navbar-shine {
+          animation:
+            odNavbarShine
+            5s
+            cubic-bezier(.4,0,.2,1)
+            infinite;
         }
 
-        .od-logo-spin {
-          animation: odLogoSpin 7s linear infinite;
+        .od-mobile-menu {
+          animation:
+            odMobileMenu
+            .35s
+            cubic-bezier(.22,1,.36,1);
         }
 
-        .od-pulse {
-          animation: odPulse 2.8s ease-in-out infinite;
+        .od-backdrop {
+          animation:
+            odBackdrop
+            .25s
+            ease-out;
         }
 
-        .od-drawer {
-          animation: odDrawerIn .42s cubic-bezier(.22,1,.36,1) forwards;
+        .od-menu-item {
+          animation:
+            odMenuItem
+            .4s
+            cubic-bezier(.22,1,.36,1)
+            both;
         }
 
-        .od-drawer-overlay {
-          animation: odOverlay .3s ease forwards;
-        }
-
-        .od-drawer-item {
-          animation: odDrawerItem .45s cubic-bezier(.22,1,.36,1) forwards;
-          animation-delay: var(--delay);
-          opacity: 0;
-        }
-
-        .od-float {
-          animation: odFloat 4s ease-in-out infinite;
+        .od-logo-glow {
+          animation:
+            odLogoGlow
+            4s
+            ease-in-out
+            infinite;
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .od-shine,
-          .od-logo-spin,
-          .od-pulse,
-          .od-drawer,
-          .od-drawer-overlay,
-          .od-drawer-item,
-          .od-float {
-            animation: none !important;
+          .od-navbar-shine,
+          .od-mobile-menu,
+          .od-backdrop,
+          .od-menu-item,
+          .od-logo-glow {
+            animation: none;
           }
         }
       `}</style>
 
-      {/* HEADER */}
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-[1000] px-3 py-3 sm:px-4 sm:py-4">
+      {/* ======================================================
+          DESKTOP / MOBILE FLOATING NAVBAR
+      ====================================================== */}
+
+      <header
+        className={`
+          fixed
+          inset-x-0
+          top-0
+          z-[1000]
+          px-3
+          pt-3
+          transition-all
+          duration-500
+          sm:px-5
+          sm:pt-4
+
+          ${
+            hidden
+              ? "-translate-y-[calc(100%+20px)]"
+              : "translate-y-0"
+          }
+        `}
+      >
         <div
-          className={`pointer-events-auto relative mx-auto w-full max-w-6xl overflow-hidden rounded-2xl border backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 ${
-            scrolled
-              ? "min-h-[62px] border-blue-400/20 bg-slate-950/90 shadow-[0_20px_70px_rgba(0,0,0,.38)]"
-              : "min-h-[68px] border-white/10 bg-slate-950/75 shadow-[0_18px_60px_rgba(0,0,0,.28)]"
-          }`}
+          className={`
+            pointer-events-auto
+            relative
+            mx-auto
+            max-w-6xl
+            overflow-hidden
+            rounded-[22px]
+            border
+            border-slate-200/80
+            bg-white/90
+            backdrop-blur-2xl
+            transition-all
+            duration-500
+
+            ${
+              scrolled
+                ? "shadow-[0_16px_50px_rgba(15,23,42,.14)]"
+                : "shadow-[0_10px_40px_rgba(15,23,42,.07)]"
+            }
+          `}
         >
-          {/* TOP GLOW */}
-          <div className="pointer-events-none absolute left-[10%] right-[10%] top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent" />
+          {/* ==================================================
+              TOP CYAN LINE
+          ================================================== */}
 
-          {/* NAVBAR SHINE */}
-          <div className="od-shine pointer-events-none absolute -left-[20%] -top-10 h-24 w-32 rotate-12 bg-gradient-to-r from-transparent via-white/20 to-transparent blur-sm" />
+          <div
+            className="
+              pointer-events-none
+              absolute
+              left-[12%]
+              right-[12%]
+              top-0
+              h-px
+              bg-gradient-to-r
+              from-transparent
+              via-cyan-400
+              to-transparent
+            "
+          />
 
-          <div className="relative flex min-h-[62px] items-center justify-between gap-4 px-3 sm:px-4">
-            {/* LOGO */}
+          {/* ==================================================
+              ANIME SHINE
+          ================================================== */}
+
+          <div
+            className="
+              od-navbar-shine
+              pointer-events-none
+              absolute
+              -left-[20%]
+              -top-10
+              h-24
+              w-32
+              rotate-12
+              bg-gradient-to-r
+              from-transparent
+              via-blue-200/50
+              to-transparent
+              blur-sm
+            "
+          />
+
+          {/* ==================================================
+              NAV CONTENT
+          ================================================== */}
+
+          <div
+            className={`
+              relative
+              flex
+              items-center
+              justify-between
+              gap-3
+              px-3
+              transition-all
+              duration-500
+              sm:px-4
+
+              ${
+                scrolled
+                  ? "min-h-[58px]"
+                  : "min-h-[68px]"
+              }
+            `}
+          >
+            {/* =================================================
+                LOGO
+            ================================================= */}
+
             <Link
               to="/"
-              onClick={closeMenu}
-              className="group relative z-10 flex shrink-0 items-center gap-2.5"
+              className="
+                group
+                flex
+                min-w-0
+                items-center
+                gap-2.5
+              "
+              aria-label="Odikart Technology Home"
             >
-              <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 shadow-[0_8px_28px_rgba(37,99,235,.30)] sm:h-11 sm:w-11">
-                <span className="od-logo-spin absolute -inset-1 rounded-full border border-white/50 border-b-transparent border-l-transparent" />
+              {/* Logo Icon */}
 
-                <span className="relative z-10 text-lg font-black tracking-[-.08em] text-white sm:text-xl">
-                  O
-                </span>
+              <span
+                className={`
+                  od-logo-glow
+                  grid
+                  shrink-0
+                  place-items-center
+                  rounded-[13px]
+                  bg-gradient-to-br
+                  from-blue-600
+                  via-blue-600
+                  to-cyan-500
+                  font-black
+                  text-white
+                  shadow-lg
+                  shadow-blue-600/20
+                  transition-all
+                  duration-500
 
-                <span className="od-shine absolute -left-1/2 top-[-100%] h-[300%] w-1/3 rotate-[25deg] bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+                  ${
+                    scrolled
+                      ? "h-9 w-9 text-base"
+                      : "h-10 w-10 text-lg"
+                  }
+                `}
+              >
+                O
               </span>
 
-              <span className="flex flex-col leading-none">
-                <strong className="text-[15px] font-bold tracking-tight text-white sm:text-base">
+              {/* Logo Text */}
+
+              <span
+                className={`
+                  overflow-hidden
+                  leading-none
+                  transition-all
+                  duration-500
+
+                  ${
+                    scrolled
+                      ? "max-w-[150px]"
+                      : "max-w-[180px]"
+                  }
+                `}
+              >
+                <strong
+                  className="
+                    block
+                    text-[15px]
+                    font-bold
+                    tracking-tight
+                    text-slate-950
+                    sm:text-base
+                  "
+                >
                   Odikart
                 </strong>
 
-                <span className="mt-1 bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-[length:200%_auto] bg-clip-text text-[6px] font-bold uppercase tracking-[.28em] text-transparent">
+                <span
+                  className="
+                    mt-1
+                    block
+                    bg-gradient-to-r
+                    from-blue-600
+                    to-cyan-500
+                    bg-clip-text
+                    text-[6px]
+                    font-bold
+                    uppercase
+                    tracking-[.28em]
+                    text-transparent
+                  "
+                >
                   Technology
                 </span>
               </span>
             </Link>
 
-            {/* DESKTOP NAV */}
-            <nav className="hidden md:flex md:items-center md:justify-end md:gap-1">
+            {/* =================================================
+                DESKTOP NAVIGATION
+            ================================================= */}
+
+            <nav
+              className="
+                hidden
+                items-center
+                gap-1
+                md:flex
+              "
+            >
               {links.map((link) => (
                 <NavLink
                   key={link.path}
                   to={link.path}
                   end={link.path === "/"}
-                  className={({ isActive }) =>
-                    `group relative flex min-h-9 items-center rounded-xl px-3 text-sm font-medium transition-all duration-300 ${
+                  className={({ isActive }) => `
+                    relative
+                    rounded-xl
+                    px-3
+                    py-2
+                    text-sm
+                    font-medium
+                    transition-all
+                    duration-300
+
+                    ${
                       isActive
-                        ? "bg-blue-500/10 text-white"
-                        : "text-slate-400 hover:bg-white/[.04] hover:text-white"
-                    }`
-                  }
+                        ? `
+                          bg-blue-50
+                          font-semibold
+                          text-blue-700
+                          shadow-sm
+                        `
+                        : `
+                          text-slate-600
+                          hover:bg-slate-50
+                          hover:text-blue-700
+                        `
+                    }
+                  `}
                 >
                   {({ isActive }) => (
                     <>
-                      <span className="relative z-10">{link.label}</span>
+                      {link.label}
 
-                      <span
-                        className={`absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-cyan-300 shadow-[0_0_10px_#22d3ee] transition-opacity ${
-                          isActive ? "opacity-100" : "opacity-0"
-                        }`}
-                      />
-
-                      <span className="pointer-events-none absolute inset-y-[-50%] -left-1/2 w-1/4 rotate-[22deg] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 transition-all duration-700 group-hover:left-[140%] group-hover:opacity-100" />
+                      {isActive && (
+                        <span
+                          className="
+                            absolute
+                            bottom-0.5
+                            left-1/2
+                            h-0.5
+                            w-4
+                            -translate-x-1/2
+                            rounded-full
+                            bg-blue-600
+                          "
+                        />
+                      )}
                     </>
                   )}
                 </NavLink>
               ))}
 
+              {/* =================================================
+                  DESKTOP CTA
+              ================================================= */}
+
               <Link
                 to="/contact"
-                className="group relative ml-3 flex min-h-10 min-w-[145px] items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-white via-slate-100 to-blue-100 px-5 text-xs font-bold text-slate-950 shadow-[0_10px_30px_rgba(255,255,255,.08)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(59,130,246,.25)]"
+                className="
+                  anime-shine
+                  group
+                  ml-2
+                  inline-flex
+                  min-h-10
+                  items-center
+                  gap-2
+                  rounded-xl
+                  bg-blue-600
+                  px-4
+                  text-xs
+                  font-bold
+                  text-white
+                  shadow-lg
+                  shadow-blue-600/15
+                  transition-all
+                  duration-300
+                  hover:-translate-y-0.5
+                  hover:bg-blue-700
+                  hover:shadow-xl
+                "
               >
-                <span className="relative z-10">Start a Project</span>
+                <span>Start a Project</span>
 
-                <FiArrowUpRight className="relative z-10 text-base transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-
-                <span className="od-shine absolute -left-1/2 top-[-100%] h-[300%] w-1/3 rotate-[25deg] bg-gradient-to-r from-transparent via-white/90 to-transparent" />
-
-                <span className="od-pulse pointer-events-none absolute inset-[-30%] rounded-full bg-blue-400/20 blur-2xl" />
+                <FiArrowUpRight
+                  className="
+                    transition-transform
+                    duration-300
+                    group-hover:-translate-y-0.5
+                    group-hover:translate-x-0.5
+                  "
+                />
               </Link>
             </nav>
 
-            {/* MOBILE MENU BUTTON */}
+            {/* =================================================
+                MOBILE MENU BUTTON
+            ================================================= */}
+
             <button
               type="button"
-              onClick={() => setOpen((v) => !v)}
-              aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+              aria-label={
+                open
+                  ? "Close navigation menu"
+                  : "Open navigation menu"
+              }
               aria-expanded={open}
-              className="relative z-[1100] grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/[.04] text-slate-200 transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-cyan-300 md:hidden"
+              onClick={() => setOpen((value) => !value)}
+              className="
+                group
+                grid
+                h-11
+                w-11
+                shrink-0
+                place-items-center
+                rounded-[14px]
+                border
+                border-slate-200
+                bg-slate-50
+                text-slate-800
+                shadow-sm
+                transition-all
+                duration-300
+                hover:border-blue-200
+                hover:bg-blue-50
+                hover:text-blue-700
+                active:scale-95
+                md:hidden
+              "
             >
               {open ? (
-                <FiX className="text-xl" />
+                <FiX
+                  className="
+                    text-xl
+                    transition-transform
+                    duration-300
+                  "
+                />
               ) : (
-                <FiMenu className="text-xl" />
+                <FiMenu
+                  className="
+                    text-xl
+                    transition-transform
+                    duration-300
+                    group-hover:scale-110
+                  "
+                />
               )}
             </button>
           </div>
         </div>
       </header>
 
-      {/* MOBILE DRAWER */}
+      {/* ========================================================
+          MOBILE BACKDROP
+      ======================================================== */}
+
       {open && (
-        <>
-          {/* OVERLAY */}
-          <button
-            type="button"
-            aria-label="Close navigation"
-            onClick={closeMenu}
-            className="od-drawer-overlay fixed inset-0 z-[1050] cursor-default border-0 bg-black/65 backdrop-blur-md md:hidden"
-          />
+        <button
+          type="button"
+          aria-label="Close navigation menu"
+          onClick={() => setOpen(false)}
+          className="
+            od-backdrop
+            fixed
+            inset-0
+            z-[1050]
+            cursor-default
+            bg-slate-950/30
+            backdrop-blur-sm
+            md:hidden
+          "
+        />
+      )}
 
-          {/* DRAWER */}
-          <aside className="od-drawer fixed right-0 top-0 z-[1080] flex h-dvh w-[88%] max-w-[390px] flex-col overflow-hidden border-l border-white/10 bg-slate-950/95 shadow-[-30px_0_100px_rgba(0,0,0,.55)] backdrop-blur-2xl md:hidden">
-            {/* BACKGROUND GLOW */}
-            <div className="pointer-events-none absolute -right-32 -top-20 h-72 w-72 rounded-full bg-blue-600/20 blur-[100px]" />
+      {/* ========================================================
+          MOBILE APP-STYLE BOTTOM SHEET
+      ======================================================== */}
 
-            <div className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-cyan-500/10 blur-[100px]" />
+      {open && (
+        <div
+          className="
+            fixed
+            inset-x-0
+            bottom-0
+            z-[1080]
+            px-2
+            pb-2
+            md:hidden
+          "
+        >
+          <aside
+            className="
+              od-mobile-menu
+              mx-auto
+              flex
+              max-h-[88dvh]
+              w-full
+              max-w-[520px]
+              flex-col
+              overflow-hidden
+              rounded-[30px]
+              border
+              border-slate-200
+              bg-white
+              shadow-[0_-20px_80px_rgba(15,23,42,.22)]
+            "
+          >
+            {/* ==================================================
+                SHEET HANDLE
+            ================================================== */}
 
-            {/* TOP LINE */}
-            <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-blue-500 via-cyan-300 to-transparent" />
+            <div className="flex justify-center pt-3">
+              <span
+                className="
+                  h-1
+                  w-10
+                  rounded-full
+                  bg-slate-200
+                "
+              />
+            </div>
 
-            {/* DRAWER HEADER */}
-            <div className="relative flex items-center justify-between border-b border-white/[.08] px-5 py-5">
-              <Link
-                to="/"
-                onClick={closeMenu}
-                className="flex items-center gap-3"
-              >
-                <span className="relative grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 shadow-[0_10px_35px_rgba(37,99,235,.3)]">
-                  <span className="od-logo-spin absolute -inset-1 rounded-full border border-white/40 border-b-transparent border-l-transparent" />
-                  <span className="relative text-xl font-black text-white">
-                    O
-                  </span>
+            {/* ==================================================
+                MOBILE HEADER
+            ================================================== */}
+
+            <div
+              className="
+                flex
+                items-center
+                justify-between
+                border-b
+                border-slate-100
+                px-5
+                pb-4
+                pt-4
+              "
+            >
+              <div className="flex items-center gap-3">
+                <span
+                  className="
+                    grid
+                    h-10
+                    w-10
+                    place-items-center
+                    rounded-xl
+                    bg-gradient-to-br
+                    from-blue-600
+                    to-cyan-500
+                    text-sm
+                    font-black
+                    text-white
+                    shadow-lg
+                    shadow-blue-600/20
+                  "
+                >
+                  O
                 </span>
 
-                <span className="leading-none">
-                  <strong className="block text-base font-bold text-white">
-                    Odikart
-                  </strong>
+                <div>
+                  <p
+                    className="
+                      text-sm
+                      font-bold
+                      text-slate-950
+                    "
+                  >
+                    Odikart Technology
+                  </p>
 
-                  <span className="mt-1 block text-[7px] font-bold uppercase tracking-[.3em] text-cyan-300">
-                    Technology
-                  </span>
-                </span>
-              </Link>
+                  <p
+                    className="
+                      mt-0.5
+                      text-[10px]
+                      font-medium
+                      text-slate-400
+                    "
+                  >
+                    Digital solutions for modern business
+                  </p>
+                </div>
+              </div>
 
               <button
                 type="button"
-                onClick={closeMenu}
-                aria-label="Close navigation"
-                className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/[.04] text-slate-300 transition hover:border-red-400/30 hover:bg-red-400/10 hover:text-red-300"
+                onClick={() => setOpen(false)}
+                className="
+                  grid
+                  h-10
+                  w-10
+                  place-items-center
+                  rounded-xl
+                  border
+                  border-slate-200
+                  bg-slate-50
+                  text-slate-700
+                  transition
+                  active:scale-95
+                "
               >
-                <FiX className="text-xl" />
+                <FiX />
               </button>
             </div>
 
-            {/* DRAWER CONTENT */}
-            <div className="relative flex-1 overflow-y-auto px-4 py-6">
-              <div className="mb-5 px-2">
-                <p className="text-[10px] font-semibold uppercase tracking-[.25em] text-cyan-400">
-                  Navigation
-                </p>
+            {/* ==================================================
+                MOBILE NAVIGATION
+            ================================================== */}
 
-                <h2 className="mt-2 text-2xl font-bold tracking-tight text-white">
-                  Build something
-                  <span className="block bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
-                    remarkable.
-                  </span>
-                </h2>
-              </div>
+            <nav
+              className="
+                flex-1
+                overflow-y-auto
+                px-3
+                py-4
+              "
+            >
+              {links.map((link, index) => {
+                const Icon = link.icon;
 
-              {/* NAV ITEMS */}
-              <nav className="space-y-2">
-                {links.map((link, index) => {
-                  const Icon = link.icon;
+                return (
+                  <NavLink
+                    key={link.path}
+                    to={link.path}
+                    end={link.path === "/"}
+                    onClick={() => setOpen(false)}
+                    style={{
+                      animationDelay: `${index * 45}ms`,
+                    }}
+                    className={({ isActive }) => `
+                      od-menu-item
+                      group
+                      mb-2
+                      flex
+                      min-h-[58px]
+                      items-center
+                      gap-3
+                      rounded-2xl
+                      border
+                      px-3
+                      transition-all
+                      duration-300
+                      active:scale-[0.98]
 
-                  return (
-                    <NavLink
-                      key={link.path}
-                      to={link.path}
-                      end={link.path === "/"}
-                      onClick={closeMenu}
-                      style={{
-                        "--delay": `${index * 70}ms`,
-                      }}
-                      className={({ isActive }) =>
-                        `od-drawer-item group relative flex min-h-[62px] items-center gap-4 overflow-hidden rounded-2xl border px-4 transition-all duration-300 ${
-                          isActive
-                            ? "border-blue-400/20 bg-blue-500/10 text-white shadow-[0_10px_35px_rgba(37,99,235,.08)]"
-                            : "border-white/[.06] bg-white/[.025] text-slate-400 hover:border-cyan-400/20 hover:bg-white/[.05] hover:text-white"
-                        }`
+                      ${
+                        isActive
+                          ? `
+                            border-blue-200
+                            bg-blue-50
+                            text-blue-700
+                            shadow-sm
+                          `
+                          : `
+                            border-transparent
+                            bg-white
+                            text-slate-600
+                            hover:border-slate-200
+                            hover:bg-slate-50
+                          `
                       }
-                    >
-                      {({ isActive }) => (
-                        <>
-                          {/* ACTIVE GLOW */}
-                          {isActive && (
-                            <span className="absolute inset-y-3 left-0 w-1 rounded-full bg-gradient-to-b from-blue-400 to-cyan-300 shadow-[0_0_15px_rgba(34,211,238,.8)]" />
-                          )}
+                    `}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        {/* Icon */}
 
-                          {/* ICON */}
+                        <span
+                          className={`
+                            grid
+                            h-10
+                            w-10
+                            shrink-0
+                            place-items-center
+                            rounded-xl
+                            transition-all
+                            duration-300
+
+                            ${
+                              isActive
+                                ? `
+                                  bg-blue-600
+                                  text-white
+                                  shadow-md
+                                  shadow-blue-600/20
+                                `
+                                : `
+                                  bg-slate-100
+                                  text-slate-500
+                                  group-hover:bg-blue-50
+                                  group-hover:text-blue-600
+                                `
+                            }
+                          `}
+                        >
+                          <Icon className="text-base" />
+                        </span>
+
+                        {/* Label */}
+
+                        <span
+                          className="
+                            flex-1
+                            text-sm
+                            font-semibold
+                          "
+                        >
+                          {link.label}
+                        </span>
+
+                        {/* Active indicator */}
+
+                        {isActive ? (
                           <span
-                            className={`relative grid h-10 w-10 shrink-0 place-items-center rounded-xl transition-all ${
-                              isActive
-                                ? "bg-blue-500/15 text-cyan-300"
-                                : "bg-white/[.04] text-slate-500 group-hover:bg-cyan-400/10 group-hover:text-cyan-300"
-                            }`}
+                            className="
+                              rounded-full
+                              bg-blue-100
+                              px-2
+                              py-1
+                              text-[9px]
+                              font-bold
+                              uppercase
+                              tracking-wider
+                              text-blue-700
+                            "
                           >
-                            <Icon className="text-lg" />
+                            Active
                           </span>
-
-                          {/* TEXT */}
-                          <span className="relative flex-1">
-                            <span className="block text-sm font-semibold">
-                              {link.label}
-                            </span>
-
-                            <span className="mt-0.5 block text-[10px] text-slate-500">
-                              {link.label === "Home" &&
-                                "Discover what we build"}
-                              {link.label === "Services" &&
-                                "Digital solutions for business"}
-                              {link.label === "Work" &&
-                                "Explore our selected work"}
-                              {link.label === "About" &&
-                                "Meet Odikart Technology"}
-                              {link.label === "Process" &&
-                                "How we turn ideas into products"}
-                              {link.label === "FAQ" &&
-                                "Common questions answered"}
-                            </span>
-                          </span>
-
-                          {/* ARROW */}
+                        ) : (
                           <FiChevronRight
-                            className={`text-lg transition-transform duration-300 ${
-                              isActive
-                                ? "text-cyan-300"
-                                : "text-slate-600 group-hover:translate-x-1 group-hover:text-cyan-300"
-                            }`}
+                            className="
+                              text-slate-300
+                              transition
+                              group-hover:translate-x-0.5
+                              group-hover:text-blue-500
+                            "
                           />
+                        )}
+                      </>
+                    )}
+                  </NavLink>
+                );
+              })}
 
-                          {/* SHINE */}
-                          <span className="pointer-events-none absolute inset-y-[-100%] -left-[60%] w-1/3 rotate-[20deg] bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 transition-all duration-700 group-hover:left-[150%] group-hover:opacity-100" />
-                        </>
-                      )}
-                    </NavLink>
-                  );
-                })}
-              </nav>
+              {/* ==================================================
+                  MOBILE CTA
+              ================================================== */}
 
-              {/* CTA */}
-              <div
-                className="od-drawer-item mt-6"
-                style={{
-                  "--delay": `${links.length * 70}ms`,
-                }}
+              <Link
+                to="/contact"
+                onClick={() => setOpen(false)}
+                className="
+                  anime-shine
+                  group
+                  mt-3
+                  flex
+                  min-h-[58px]
+                  items-center
+                  justify-between
+                  rounded-2xl
+                  bg-blue-600
+                  px-5
+                  text-sm
+                  font-bold
+                  text-white
+                  shadow-lg
+                  shadow-blue-600/20
+                  transition-all
+                  duration-300
+                  active:scale-[0.98]
+                "
               >
-                <Link
-                  to="/contact"
-                  onClick={closeMenu}
-                  className="group relative flex min-h-[60px] items-center justify-between overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 px-5 text-sm font-bold text-white shadow-[0_15px_45px_rgba(37,99,235,.25)] transition-all duration-300 hover:-translate-y-0.5"
+                <span>Start a Project</span>
+
+                <span
+                  className="
+                    grid
+                    h-9
+                    w-9
+                    place-items-center
+                    rounded-xl
+                    bg-white/15
+                  "
                 >
-                  <span>
-                    <span className="block text-[10px] font-semibold uppercase tracking-[.18em] text-blue-100">
-                      Let's work together
-                    </span>
-
-                    <span className="mt-1 block">
-                      Start a Project
-                    </span>
-                  </span>
-
-                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-white/10">
-                    <FiArrowUpRight className="text-xl transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
-                  </span>
-
-                  <span className="od-shine absolute -left-1/2 top-[-100%] h-[300%] w-1/3 rotate-[25deg] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-                </Link>
-              </div>
-
-              {/* STATUS */}
-              <div
-                className="od-drawer-item mt-5 rounded-2xl border border-white/[.06] bg-white/[.025] p-4"
-                style={{
-                  "--delay": `${(links.length + 1) * 70}ms`,
-                }}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="relative flex h-3 w-3">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-50" />
-                    <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,.8)]" />
-                  </span>
-
-                  <div>
-                    <p className="text-xs font-semibold text-white">
-                      Available for new projects
-                    </p>
-
-                    <p className="mt-1 text-[10px] text-slate-500">
-                      Let's build your next digital product.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* FOOTER */}
-            <div className="relative border-t border-white/[.08] px-5 py-4">
-              <div className="flex items-center justify-between">
-                <p className="text-[10px] text-slate-600">
-                  © {new Date().getFullYear()} Odikart Technology
-                </p>
-
-                <span className="text-[9px] font-semibold uppercase tracking-[.2em] text-slate-700">
-                  Digital Studio
+                  <FiArrowUpRight
+                    className="
+                      transition-transform
+                      duration-300
+                      group-hover:-translate-y-0.5
+                      group-hover:translate-x-0.5
+                    "
+                  />
                 </span>
-              </div>
+              </Link>
+            </nav>
+
+            {/* ==================================================
+                MOBILE FOOTER
+            ================================================== */}
+
+            <div
+              className="
+                border-t
+                border-slate-100
+                px-5
+                py-4
+                text-center
+              "
+            >
+              <p
+                className="
+                  text-[10px]
+                  font-medium
+                  text-slate-400
+                "
+              >
+                © {new Date().getFullYear()} Odikart Technology
+              </p>
             </div>
           </aside>
-        </>
+        </div>
       )}
     </>
   );

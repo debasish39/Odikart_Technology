@@ -1,15 +1,2 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { FiArrowUpRight } from "react-icons/fi";
-import AnimeCard from "./AnimeCard";
-
-export default function ServiceCard({ service, delay = 0 }) {
-  return (
-    <AnimeCard delay={delay} className="h-full">
-      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-2xl text-cyan-300">{service.icon}</div>
-      <h3 className="text-xl font-bold">{service.title}</h3>
-      <p className="mt-3 leading-7 text-slate-400">{service.description}</p>
-      <Link to={`/services/${service.slug}`} className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 hover:text-white">Explore <FiArrowUpRight /></Link>
-    </AnimeCard>
-  );
-}
+import React from "react"; import {Link} from "react-router-dom"; import {FiArrowUpRight} from "react-icons/fi";
+export default function ServiceCard({service,index=0}){const Icon=service.icon;return <article data-aos="fade-up" data-aos-delay={index*60} className="anime-shine group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_10px_35px_rgba(15,23,42,.045)] transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_20px_50px_rgba(37,99,235,.10)]"><div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-blue-500/10 blur-3xl transition group-hover:scale-125"/><div className="relative"><div className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-50 text-xl text-blue-600"><Icon/></div><h3 className="mt-5 text-lg font-bold text-slate-950">{service.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{service.description}</p><Link to={`/services/${service.slug}`} className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-blue-600">Explore <FiArrowUpRight/></Link></div></article>}

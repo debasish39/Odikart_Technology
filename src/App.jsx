@@ -17,48 +17,174 @@ import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 
+
+/* =========================================================
+   PAGE TRANSITION
+========================================================= */
+
 function PageTransition() {
   const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    const timer = setTimeout(() => AOS.refreshHard(), 100);
+    // Scroll to top whenever the route changes
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    // Refresh AOS after the new page is rendered
+    const timer = setTimeout(() => {
+      AOS.refreshHard();
+    }, 150);
+
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
-  return null;
+  return (
+    <div
+      key={location.pathname}
+      className="pointer-events-none fixed inset-0 z-[9999]"
+    >
+      {/* Anime page shine */}
+      <div className="page-anime-shine absolute inset-y-0 -left-[30%] w-[20%]" />
+    </div>
+  );
 }
 
+
+/* =========================================================
+   APP
+========================================================= */
+
 export default function App() {
+
+  /* -------------------------------------------------------
+     AOS INITIALIZATION
+  ------------------------------------------------------- */
+
   useEffect(() => {
     AOS.init({
       duration: 850,
       easing: "ease-out-cubic",
-      once: true,
+      // once: true,
       offset: 70,
       mirror: false,
+      anchorPlacement: "top-bottom",
     });
+
+    // Refresh after initial page rendering
+    const timer = setTimeout(() => {
+      AOS.refreshHard();
+    }, 300);
+
+    return () => clearTimeout(timer);
   }, []);
 
+
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#020617] text-white">
+    <div
+      className="
+        min-h-screen
+        overflow-x-hidden
+        bg-white
+        text-slate-950
+      "
+    >
+
+      {/* ===================================================
+          NAVBAR
+      =================================================== */}
+
       <Navbar />
+
+
+      {/* ===================================================
+          ROUTE / PAGE TRANSITION
+      =================================================== */}
+
       <PageTransition />
-      <main>
+
+
+      {/* ===================================================
+          MAIN CONTENT
+      =================================================== */}
+
+      <main className="min-h-screen">
+
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/services/:slug" element={<ServiceDetails />} />
-          <Route path="/work" element={<Work />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/process" element={<Process />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="*" element={<NotFound />} />
+
+          {/* HOME */}
+          <Route
+            path="/"
+            element={<Home />}
+          />
+
+          {/* SERVICES */}
+          <Route
+            path="/services"
+            element={<Services />}
+          />
+
+          {/* SERVICE DETAILS */}
+          <Route
+            path="/services/:slug"
+            element={<ServiceDetails />}
+          />
+
+          {/* WORK */}
+          <Route
+            path="/work"
+            element={<Work />}
+          />
+
+          {/* ABOUT */}
+          <Route
+            path="/about"
+            element={<About />}
+          />
+
+          {/* PROCESS */}
+          <Route
+            path="/process"
+            element={<Process />}
+          />
+
+          {/* CONTACT */}
+          <Route
+            path="/contact"
+            element={<Contact />}
+          />
+
+          {/* FAQ */}
+          <Route
+            path="/faq"
+            element={<FAQ />}
+          />
+
+          {/* 404 */}
+          <Route
+            path="*"
+            element={<NotFound />}
+          />
+
         </Routes>
+
       </main>
+
+
+      {/* ===================================================
+          FOOTER
+      =================================================== */}
+
       <Footer />
+
+
+      {/* ===================================================
+          WHATSAPP
+      =================================================== */}
+
       <WhatsAppButton />
+
     </div>
   );
 }
