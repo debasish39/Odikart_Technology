@@ -1,10 +1,5 @@
-
 import React, { useEffect, useState } from "react";
-import {
-  NavLink,
-  Link,
-  useLocation,
-} from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 
 import {
   FiMenu,
@@ -19,8 +14,10 @@ import {
   FiHelpCircle,
 } from "react-icons/fi";
 
+import { IoSparklesOutline } from "react-icons/io5";
+
 /* ============================================================
-   NAVIGATION DATA
+   NAVIGATION
 ============================================================ */
 
 const links = [
@@ -76,12 +73,8 @@ export default function Navbar() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      setScrolled(currentScrollY > 20);
+      setScrolled(currentScrollY > 24);
 
-      /*
-       * Hide navbar while scrolling DOWN.
-       * Show navbar while scrolling UP.
-       */
       if (currentScrollY > 120) {
         if (currentScrollY > lastScrollY + 8) {
           setHidden(true);
@@ -107,7 +100,7 @@ export default function Navbar() {
   }, [lastScrollY]);
 
   /* ==========================================================
-     CLOSE MOBILE MENU WHEN ROUTE CHANGES
+     ROUTE CHANGE
   ========================================================== */
 
   useEffect(() => {
@@ -116,15 +109,11 @@ export default function Navbar() {
   }, [location.pathname]);
 
   /* ==========================================================
-     LOCK BODY SCROLL WHEN MENU IS OPEN
+     BODY LOCK
   ========================================================== */
 
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = open ? "hidden" : "";
 
     return () => {
       document.body.style.overflow = "";
@@ -132,7 +121,7 @@ export default function Navbar() {
   }, [open]);
 
   /* ==========================================================
-     CLOSE MENU WITH ESC
+     ESCAPE
   ========================================================== */
 
   useEffect(() => {
@@ -156,27 +145,90 @@ export default function Navbar() {
       ====================================================== */}
 
       <style>{`
-        @keyframes odNavbarShine {
+        /* =====================================================
+           GLASS SHINE
+        ===================================================== */
+
+        @keyframes odGlassShine {
           0% {
-            transform: translateX(-180%) skewX(-18deg);
+            transform: translateX(-160%) skewX(-18deg);
             opacity: 0;
           }
 
-          15% {
-            opacity: 0.7;
+          12% {
+            opacity: 0.2;
           }
 
-          55%,
+          40% {
+            opacity: 0.55;
+          }
+
+          65%,
           100% {
-            transform: translateX(480%) skewX(-18deg);
+            transform: translateX(520%) skewX(-18deg);
             opacity: 0;
           }
         }
 
+        /* =====================================================
+           LOGO GLOW
+        ===================================================== */
+
+        @keyframes odLogoGlow {
+          0%,
+          100% {
+            box-shadow:
+              0 8px 25px rgba(37, 99, 235, 0.10),
+              0 0 0 rgba(6, 182, 212, 0);
+          }
+
+          50% {
+            box-shadow:
+              0 12px 32px rgba(37, 99, 235, 0.20),
+              0 0 25px rgba(6, 182, 212, 0.12);
+          }
+        }
+
+        /* =====================================================
+           DOT PULSE
+        ===================================================== */
+
+        @keyframes odDotPulse {
+          0%,
+          100% {
+            transform: scale(1);
+            opacity: 0.65;
+          }
+
+          50% {
+            transform: scale(1.35);
+            opacity: 1;
+          }
+        }
+
+        /* =====================================================
+           FLOATING AMBIENT GLOW
+        ===================================================== */
+
+        @keyframes odAmbientFloat {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0);
+          }
+
+          50% {
+            transform: translate3d(10px, -8px, 0);
+          }
+        }
+
+        /* =====================================================
+           MOBILE MENU
+        ===================================================== */
+
         @keyframes odMobileMenu {
           from {
             opacity: 0;
-            transform: translateY(25px) scale(0.97);
+            transform: translateY(30px) scale(0.96);
           }
 
           to {
@@ -184,6 +236,10 @@ export default function Navbar() {
             transform: translateY(0) scale(1);
           }
         }
+
+        /* =====================================================
+           BACKDROP
+        ===================================================== */
 
         @keyframes odBackdrop {
           from {
@@ -195,10 +251,14 @@ export default function Navbar() {
           }
         }
 
+        /* =====================================================
+           MOBILE ITEM
+        ===================================================== */
+
         @keyframes odMenuItem {
           from {
             opacity: 0;
-            transform: translateY(8px);
+            transform: translateY(10px);
           }
 
           to {
@@ -207,34 +267,95 @@ export default function Navbar() {
           }
         }
 
-        @keyframes odLogoGlow {
+        /* =====================================================
+           ACTIVE GLOW
+        ===================================================== */
+
+        @keyframes odActiveGlow {
           0%,
           100% {
             box-shadow:
-              0 0 0 rgba(37, 99, 235, 0),
-              0 8px 25px rgba(37, 99, 235, 0.18);
+              0 5px 20px rgba(37, 99, 235, 0.05);
           }
 
           50% {
             box-shadow:
-              0 0 22px rgba(6, 182, 212, 0.22),
-              0 8px 30px rgba(37, 99, 235, 0.25);
+              0 8px 28px rgba(37, 99, 235, 0.12);
           }
         }
 
+        /* =====================================================
+           LOGO IMAGE FLOAT
+        ===================================================== */
+
+        @keyframes odLogoFloat {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+
+          50% {
+            transform: translateY(-1px);
+          }
+        }
+
+        /* =====================================================
+           CLASSES
+        ===================================================== */
+
         .od-navbar-shine {
           animation:
-            odNavbarShine
-            5s
-            cubic-bezier(.4,0,.2,1)
+            odGlassShine
+            6s
+            cubic-bezier(.4, 0, .2, 1)
+            infinite;
+        }
+
+        .od-logo-glow {
+          animation:
+            odLogoGlow
+            4s
+            ease-in-out
+            infinite;
+        }
+
+        .od-logo-float {
+          animation:
+            odLogoFloat
+            4s
+            ease-in-out
+            infinite;
+        }
+
+        .od-dot-pulse {
+          animation:
+            odDotPulse
+            2.8s
+            ease-in-out
+            infinite;
+        }
+
+        .od-ambient-float {
+          animation:
+            odAmbientFloat
+            7s
+            ease-in-out
+            infinite;
+        }
+
+        .od-active-glow {
+          animation:
+            odActiveGlow
+            4s
+            ease-in-out
             infinite;
         }
 
         .od-mobile-menu {
           animation:
             odMobileMenu
-            .35s
-            cubic-bezier(.22,1,.36,1);
+            .38s
+            cubic-bezier(.22, 1, .36, 1);
         }
 
         .od-backdrop {
@@ -247,32 +368,32 @@ export default function Navbar() {
         .od-menu-item {
           animation:
             odMenuItem
-            .4s
-            cubic-bezier(.22,1,.36,1)
+            .42s
+            cubic-bezier(.22, 1, .36, 1)
             both;
         }
 
-        .od-logo-glow {
-          animation:
-            odLogoGlow
-            4s
-            ease-in-out
-            infinite;
-        }
+        /* =====================================================
+           REDUCED MOTION
+        ===================================================== */
 
         @media (prefers-reduced-motion: reduce) {
           .od-navbar-shine,
+          .od-logo-glow,
+          .od-logo-float,
+          .od-dot-pulse,
+          .od-ambient-float,
+          .od-active-glow,
           .od-mobile-menu,
           .od-backdrop,
-          .od-menu-item,
-          .od-logo-glow {
-            animation: none;
+          .od-menu-item {
+            animation: none !important;
           }
         }
       `}</style>
 
       {/* ======================================================
-          DESKTOP / MOBILE FLOATING NAVBAR
+          MAIN NAVBAR
       ====================================================== */}
 
       <header
@@ -281,63 +402,157 @@ export default function Navbar() {
           inset-x-0
           top-0
           z-[1000]
+
           px-3
           pt-3
-          transition-all
-          duration-500
+
           sm:px-5
           sm:pt-4
 
+          transition-all
+          duration-500
+
           ${
             hidden
-              ? "-translate-y-[calc(100%+20px)]"
+              ? "-translate-y-[calc(100%+25px)]"
               : "translate-y-0"
           }
         `}
       >
         <div
           className={`
-            pointer-events-auto
             relative
             mx-auto
-            max-w-6xl
+            max-w-7xl
             overflow-hidden
-            rounded-[22px]
+
+            rounded-[26px]
+
             border
-            border-slate-200/80
-            bg-white/90
-            backdrop-blur-2xl
+            border-white/75
+
+            bg-white/[0.58]
+
+            shadow-[0_12px_50px_rgba(15,23,42,.08)]
+
+            backdrop-blur-3xl
+            backdrop-saturate-[180%]
+
             transition-all
             duration-500
 
             ${
               scrolled
-                ? "shadow-[0_16px_50px_rgba(15,23,42,.14)]"
-                : "shadow-[0_10px_40px_rgba(15,23,42,.07)]"
+                ? `
+                  bg-white/[0.74]
+                  shadow-[0_20px_70px_rgba(15,23,42,.13)]
+                  ring-1
+                  ring-blue-100/60
+                `
+                : `
+                  shadow-[0_12px_45px_rgba(15,23,42,.07)]
+                `
             }
           `}
         >
           {/* ==================================================
-              TOP CYAN LINE
+              TOP GLASS REFLECTION
           ================================================== */}
 
           <div
             className="
               pointer-events-none
               absolute
-              left-[12%]
-              right-[12%]
+              inset-x-0
+              top-0
+              h-[45%]
+              rounded-t-[26px]
+              bg-gradient-to-b
+              from-white/60
+              via-white/15
+              to-transparent
+              opacity-80
+            "
+          />
+
+          {/* ==================================================
+              LEFT AMBIENT GLOW
+          ================================================== */}
+
+          <div
+            className="
+              od-ambient-float
+              pointer-events-none
+              absolute
+              -left-20
+              -top-24
+              h-48
+              w-48
+              rounded-full
+              bg-blue-500/10
+              blur-3xl
+            "
+          />
+
+          {/* ==================================================
+              RIGHT AMBIENT GLOW
+          ================================================== */}
+
+          <div
+            className="
+              od-ambient-float
+              pointer-events-none
+              absolute
+              -right-20
+              -top-24
+              h-48
+              w-48
+              rounded-full
+              bg-cyan-400/10
+              blur-3xl
+            "
+          />
+
+          {/* ==================================================
+              TOP GLASS LIGHT
+          ================================================== */}
+
+          <div
+            className="
+              pointer-events-none
+              absolute
+              inset-x-[7%]
               top-0
               h-px
               bg-gradient-to-r
               from-transparent
-              via-cyan-400
+              via-white
+              to-transparent
+              opacity-90
+            "
+          />
+
+          {/* ==================================================
+              BOTTOM BLUE LIGHT
+          ================================================== */}
+
+          <div
+            className="
+              pointer-events-none
+              absolute
+              bottom-0
+              left-[8%]
+              right-[8%]
+              h-px
+              bg-gradient-to-r
+              from-transparent
+              via-blue-400/40
               to-transparent
             "
           />
 
           {/* ==================================================
-              ANIME SHINE
+              ANIME GLASS SHINE
           ================================================== */}
 
           <div
@@ -345,21 +560,21 @@ export default function Navbar() {
               od-navbar-shine
               pointer-events-none
               absolute
-              -left-[20%]
+              -left-[18%]
               -top-10
               h-24
               w-32
               rotate-12
               bg-gradient-to-r
               from-transparent
-              via-blue-200/50
+              via-white/55
               to-transparent
               blur-sm
             "
           />
 
           {/* ==================================================
-              NAV CONTENT
+              CONTENT
           ================================================== */}
 
           <div
@@ -368,11 +583,13 @@ export default function Navbar() {
               flex
               items-center
               justify-between
-              gap-3
+              gap-4
+
               px-3
+              sm:px-4
+
               transition-all
               duration-500
-              sm:px-4
 
               ${
                 scrolled
@@ -381,201 +598,185 @@ export default function Navbar() {
               }
             `}
           >
-            {/* =================================================
-                LOGO
-            ================================================= */}
+       {/* ==================================================
+    LOGO — IMAGE ONLY
+================================================== */}
 
-            <Link
-              to="/"
-              className="
-                group
-                flex
-                min-w-0
-                items-center
-                gap-2.5
-              "
-              aria-label="Odikart Technology Home"
-            >
-              {/* Logo Icon */}
+<Link
+  to="/"
+  aria-label="Odikart Technology Home"
+  className="group flex shrink-0 items-center"
+>
+  <img
+    src="/banner.png"
+    alt="Odikart Technology"
+    className="
+      h-18
+      w-[133px]
+      object-contain
+      transition-transform
+      duration-300
+      group-hover:scale-105
+    "
+  />
+</Link>
+            {/* ==================================================
+                DESKTOP NAV
+            ================================================== */}
 
-              <span
-                className={`
-                  od-logo-glow
-                  grid
-                  shrink-0
-                  place-items-center
-                  rounded-[13px]
-                  bg-gradient-to-br
-                  from-blue-600
-                  via-blue-600
-                  to-cyan-500
-                  font-black
-                  text-white
-                  shadow-lg
-                  shadow-blue-600/20
-                  transition-all
-                  duration-500
-
-                  ${
-                    scrolled
-                      ? "h-9 w-9 text-base"
-                      : "h-10 w-10 text-lg"
-                  }
-                `}
-              >
-                O
-              </span>
-
-              {/* Logo Text */}
-
-              <span
-                className={`
-                  overflow-hidden
-                  leading-none
-                  transition-all
-                  duration-500
-
-                  ${
-                    scrolled
-                      ? "max-w-[150px]"
-                      : "max-w-[180px]"
-                  }
-                `}
-              >
-                <strong
-                  className="
-                    block
-                    text-[15px]
-                    font-bold
-                    tracking-tight
-                    text-slate-950
-                    sm:text-base
-                  "
-                >
-                  Odikart
-                </strong>
-
-                <span
-                  className="
-                    mt-1
-                    block
-                    bg-gradient-to-r
-                    from-blue-600
-                    to-cyan-500
-                    bg-clip-text
-                    text-[6px]
-                    font-bold
-                    uppercase
-                    tracking-[.28em]
-                    text-transparent
-                  "
-                >
-                  Technology
-                </span>
-              </span>
-            </Link>
-
-            {/* =================================================
-                DESKTOP NAVIGATION
-            ================================================= */}
-
-            <nav
-              className="
-                hidden
-                items-center
-                gap-1
-                md:flex
-              "
-            >
+            <nav className="hidden items-center gap-1 md:flex">
               {links.map((link) => (
                 <NavLink
                   key={link.path}
                   to={link.path}
                   end={link.path === "/"}
                   className={({ isActive }) => `
+                    group
                     relative
-                    rounded-xl
-                    px-3
-                    py-2
-                    text-sm
-                    font-medium
+
+                    rounded-full
+
+                    px-3.5
+                    py-2.5
+
+                    text-[13px]
+                    font-semibold
+
                     transition-all
                     duration-300
 
                     ${
                       isActive
                         ? `
-                          bg-blue-50
-                          font-semibold
+                          od-active-glow
+
+                          border
+                          border-blue-100/80
+
+                          bg-white/80
+
                           text-blue-700
-                          shadow-sm
+
+                          shadow-[inset_0_1px_0_rgba(255,255,255,.9)]
                         `
                         : `
+                          border
+                          border-transparent
+
                           text-slate-600
-                          hover:bg-slate-50
+
+                          hover:border-white/70
+                          hover:bg-white/55
                           hover:text-blue-700
                         `
                     }
                   `}
                 >
-                  {({ isActive }) => (
-                    <>
-                      {link.label}
+                  {({ isActive }) => {
+                    const Icon = link.icon;
 
-                      {isActive && (
-                        <span
-                          className="
-                            absolute
-                            bottom-0.5
-                            left-1/2
-                            h-0.5
-                            w-4
-                            -translate-x-1/2
-                            rounded-full
-                            bg-blue-600
-                          "
+                    return (
+                      <span className="flex items-center gap-1.5">
+                        <Icon
+                          className={`
+                            text-sm
+
+                            transition-all
+                            duration-300
+
+                            ${
+                              isActive
+                                ? "scale-105 text-blue-600"
+                                : "group-hover:scale-105 group-hover:text-blue-600"
+                            }
+                          `}
                         />
-                      )}
-                    </>
-                  )}
+
+                        <span>{link.label}</span>
+
+                        {isActive && (
+                          <span
+                            className="
+                              od-dot-pulse
+
+                              ml-0.5
+
+                              h-1.5
+                              w-1.5
+
+                              rounded-full
+
+                              bg-cyan-500
+
+                              shadow-[0_0_10px_rgba(6,182,212,.55)]
+                            "
+                          />
+                        )}
+                      </span>
+                    );
+                  }}
                 </NavLink>
               ))}
 
-              {/* =================================================
-                  DESKTOP CTA
-              ================================================= */}
+              {/* ==================================================
+                  CTA
+              ================================================== */}
 
               <Link
                 to="/contact"
                 className="
                   anime-shine
                   group
+                  relative
+
                   ml-2
+
                   inline-flex
                   min-h-10
+
                   items-center
                   gap-2
-                  rounded-xl
-                  bg-blue-600
-                  px-4
+
+                  overflow-hidden
+
+                  rounded-full
+
+                  border
+                  border-blue-500/20
+
+                  bg-gradient-to-r
+                  from-blue-600
+                  to-blue-500
+
+                  px-4.5
+
                   text-xs
                   font-bold
                   text-white
-                  shadow-lg
-                  shadow-blue-600/15
+
+                  shadow-[0_10px_28px_rgba(37,99,235,.20)]
+
                   transition-all
                   duration-300
+
                   hover:-translate-y-0.5
-                  hover:bg-blue-700
-                  hover:shadow-xl
+                  hover:from-blue-700
+                  hover:to-blue-600
+
+                  hover:shadow-[0_15px_38px_rgba(37,99,235,.28)]
+
+                  active:scale-[.96]
                 "
               >
+                <IoSparklesOutline className="text-[13px]" />
+
                 <span>Start a Project</span>
 
                 <FiArrowUpRight
                   className="
                     transition-transform
                     duration-300
+
                     group-hover:-translate-y-0.5
                     group-hover:translate-x-0.5
                   "
@@ -583,9 +784,9 @@ export default function Navbar() {
               </Link>
             </nav>
 
-            {/* =================================================
+            {/* ==================================================
                 MOBILE MENU BUTTON
-            ================================================= */}
+            ================================================== */}
 
             <button
               type="button"
@@ -599,39 +800,45 @@ export default function Navbar() {
               className="
                 group
                 grid
+
                 h-11
                 w-11
+
                 shrink-0
                 place-items-center
+
                 rounded-[14px]
+
                 border
-                border-slate-200
-                bg-slate-50
+                border-white/80
+
+                bg-white/65
+
                 text-slate-800
-                shadow-sm
+
+                shadow-[0_8px_25px_rgba(15,23,42,.08)]
+
+                backdrop-blur-xl
+
                 transition-all
                 duration-300
+
                 hover:border-blue-200
-                hover:bg-blue-50
+                hover:bg-white
                 hover:text-blue-700
+
                 active:scale-95
+
                 md:hidden
               "
             >
               {open ? (
-                <FiX
-                  className="
-                    text-xl
-                    transition-transform
-                    duration-300
-                  "
-                />
+                <FiX className="text-xl" />
               ) : (
                 <FiMenu
                   className="
                     text-xl
-                    transition-transform
-                    duration-300
+                    transition
                     group-hover:scale-110
                   "
                 />
@@ -641,9 +848,9 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* ========================================================
+      {/* ======================================================
           MOBILE BACKDROP
-      ======================================================== */}
+      ====================================================== */}
 
       {open && (
         <button
@@ -652,20 +859,25 @@ export default function Navbar() {
           onClick={() => setOpen(false)}
           className="
             od-backdrop
+
             fixed
             inset-0
             z-[1050]
+
             cursor-default
-            bg-slate-950/30
-            backdrop-blur-sm
+
+            bg-slate-950/25
+
+            backdrop-blur-[7px]
+
             md:hidden
           "
         />
       )}
 
-      {/* ========================================================
-          MOBILE APP-STYLE BOTTOM SHEET
-      ======================================================== */}
+      {/* ======================================================
+          MOBILE APP MENU
+      ====================================================== */}
 
       {open && (
         <div
@@ -674,39 +886,96 @@ export default function Navbar() {
             inset-x-0
             bottom-0
             z-[1080]
+
             px-2
             pb-2
+
             md:hidden
           "
         >
           <aside
             className="
               od-mobile-menu
+
+              relative
+
               mx-auto
+
               flex
               max-h-[88dvh]
               w-full
               max-w-[520px]
+
               flex-col
+
               overflow-hidden
+
               rounded-[30px]
+
               border
-              border-slate-200
-              bg-white
-              shadow-[0_-20px_80px_rgba(15,23,42,.22)]
+              border-white/80
+
+              bg-white/[0.82]
+
+              shadow-[0_-25px_100px_rgba(15,23,42,.22)]
+
+              backdrop-blur-3xl
+              backdrop-saturate-[180%]
             "
           >
             {/* ==================================================
-                SHEET HANDLE
+                MOBILE GLOW
             ================================================== */}
 
-            <div className="flex justify-center pt-3">
+            <div
+              className="
+                pointer-events-none
+
+                absolute
+                -right-20
+                -top-20
+
+                h-48
+                w-48
+
+                rounded-full
+
+                bg-blue-500/10
+
+                blur-3xl
+              "
+            />
+
+            <div
+              className="
+                pointer-events-none
+
+                absolute
+                -left-20
+                bottom-10
+
+                h-40
+                w-40
+
+                rounded-full
+
+                bg-cyan-400/10
+
+                blur-3xl
+              "
+            />
+
+            {/* ==================================================
+                DRAG HANDLE
+            ================================================== */}
+
+            <div className="relative flex justify-center pt-3">
               <span
                 className="
                   h-1
                   w-10
                   rounded-full
-                  bg-slate-200
+                  bg-slate-300
                 "
               />
             </div>
@@ -717,75 +986,166 @@ export default function Navbar() {
 
             <div
               className="
+                relative
+
                 flex
                 items-center
                 justify-between
+
                 border-b
-                border-slate-100
+                border-white/70
+
                 px-5
                 pb-4
                 pt-4
               "
             >
               <div className="flex items-center gap-3">
-                <span
+                {/* ==================================================
+                    MOBILE REAL LOGO
+                ================================================== */}
+
+                <Link
+                  to="/"
+                  onClick={() => setOpen(false)}
+                  aria-label="Odikart Technology Home"
                   className="
+                    group
+
+                    relative
                     grid
-                    h-10
-                    w-10
+
+                    h-11
+                    w-11
+
+                    shrink-0
+
                     place-items-center
-                    rounded-xl
-                    bg-gradient-to-br
-                    from-blue-600
-                    to-cyan-500
-                    text-sm
-                    font-black
-                    text-white
-                    shadow-lg
-                    shadow-blue-600/20
+
+                    overflow-hidden
+
+                    rounded-[14px]
+
+                    border
+                    border-white/80
+
+                    bg-white/70
+
+                    shadow-[0_8px_25px_rgba(15,23,42,.10)]
+
+                    backdrop-blur-xl
                   "
                 >
-                  O
-                </span>
+                  <img
+                    src="/logo.png"
+                    alt="Odikart Technology"
+                    className="
+                      relative
+                      z-10
+
+                      h-[72%]
+                      w-[72%]
+
+                      object-contain
+
+                      transition-transform
+                      duration-300
+
+                      group-hover:scale-105
+                    "
+                  />
+
+                  <span
+                    className="
+                      pointer-events-none
+
+                      absolute
+                      inset-0
+
+                      bg-gradient-to-br
+                      from-white/60
+                      via-transparent
+                      to-transparent
+                    "
+                  />
+
+                  <span
+                    className="
+                      pointer-events-none
+
+                      absolute
+
+                      -left-[60%]
+                      top-[-20%]
+
+                      h-[140%]
+                      w-[35%]
+
+                      rotate-[18deg]
+
+                      bg-gradient-to-r
+                      from-transparent
+                      via-white/70
+                      to-transparent
+
+                      blur-sm
+
+                      transition-all
+                      duration-700
+
+                      group-hover:left-[120%]
+                    "
+                  />
+                </Link>
+
+                {/* Brand */}
 
                 <div>
-                  <p
-                    className="
-                      text-sm
-                      font-bold
-                      text-slate-950
-                    "
-                  >
+                  <p className="text-sm font-black text-slate-950">
                     Odikart Technology
                   </p>
 
-                  <p
-                    className="
-                      mt-0.5
-                      text-[10px]
-                      font-medium
-                      text-slate-400
-                    "
-                  >
+                  <p className="mt-0.5 text-[10px] font-medium text-slate-400">
                     Digital solutions for modern business
                   </p>
                 </div>
               </div>
 
+              {/* ==================================================
+                  CLOSE
+              ================================================== */}
+
               <button
                 type="button"
                 onClick={() => setOpen(false)}
+                aria-label="Close navigation menu"
                 className="
                   grid
+
                   h-10
                   w-10
+
                   place-items-center
+
                   rounded-xl
+
                   border
-                  border-slate-200
-                  bg-slate-50
+                  border-white
+
+                  bg-white/70
+
                   text-slate-700
+
+                  shadow-sm
+
+                  backdrop-blur-xl
+
                   transition
+
+                  hover:border-blue-200
+                  hover:bg-white
+                  hover:text-blue-600
+
                   active:scale-95
                 "
               >
@@ -794,17 +1154,10 @@ export default function Navbar() {
             </div>
 
             {/* ==================================================
-                MOBILE NAVIGATION
+                MOBILE LINKS
             ================================================== */}
 
-            <nav
-              className="
-                flex-1
-                overflow-y-auto
-                px-3
-                py-4
-              "
-            >
+            <nav className="relative flex-1 overflow-y-auto px-3 py-4">
               {links.map((link, index) => {
                 const Icon = link.icon;
 
@@ -820,32 +1173,48 @@ export default function Navbar() {
                     className={({ isActive }) => `
                       od-menu-item
                       group
+
                       mb-2
+
                       flex
                       min-h-[58px]
+
                       items-center
                       gap-3
+
                       rounded-2xl
+
                       border
+
                       px-3
+
                       transition-all
                       duration-300
-                      active:scale-[0.98]
+
+                      active:scale-[.98]
 
                       ${
                         isActive
                           ? `
-                            border-blue-200
-                            bg-blue-50
+                            border-blue-200/80
+
+                            bg-white/85
+
                             text-blue-700
-                            shadow-sm
+
+                            shadow-[0_10px_30px_rgba(37,99,235,.09)]
+
+                            backdrop-blur-xl
                           `
                           : `
                             border-transparent
-                            bg-white
+
+                            bg-white/45
+
                             text-slate-600
-                            hover:border-slate-200
-                            hover:bg-slate-50
+
+                            hover:border-white
+                            hover:bg-white/75
                           `
                       }
                     `}
@@ -857,11 +1226,16 @@ export default function Navbar() {
                         <span
                           className={`
                             grid
+
                             h-10
                             w-10
+
                             shrink-0
+
                             place-items-center
+
                             rounded-xl
+
                             transition-all
                             duration-300
 
@@ -870,12 +1244,16 @@ export default function Navbar() {
                                 ? `
                                   bg-blue-600
                                   text-white
+
                                   shadow-md
                                   shadow-blue-600/20
                                 `
                                 : `
-                                  bg-slate-100
+                                  bg-white/70
                                   text-slate-500
+
+                                  shadow-sm
+
                                   group-hover:bg-blue-50
                                   group-hover:text-blue-600
                                 `
@@ -887,29 +1265,31 @@ export default function Navbar() {
 
                         {/* Label */}
 
-                        <span
-                          className="
-                            flex-1
-                            text-sm
-                            font-semibold
-                          "
-                        >
+                        <span className="flex-1 text-sm font-semibold">
                           {link.label}
                         </span>
 
-                        {/* Active indicator */}
+                        {/* Indicator */}
 
                         {isActive ? (
                           <span
                             className="
                               rounded-full
-                              bg-blue-100
+
+                              border
+                              border-blue-100
+
+                              bg-blue-50
+
                               px-2
                               py-1
+
                               text-[9px]
                               font-bold
+
                               uppercase
                               tracking-wider
+
                               text-blue-700
                             "
                           >
@@ -919,7 +1299,9 @@ export default function Navbar() {
                           <FiChevronRight
                             className="
                               text-slate-300
+
                               transition
+
                               group-hover:translate-x-0.5
                               group-hover:text-blue-500
                             "
@@ -941,40 +1323,70 @@ export default function Navbar() {
                 className="
                   anime-shine
                   group
+
                   mt-3
+
                   flex
                   min-h-[58px]
+
                   items-center
                   justify-between
+
                   rounded-2xl
-                  bg-blue-600
+
+                  border
+                  border-blue-500/20
+
+                  bg-gradient-to-r
+                  from-blue-600
+                  to-blue-500
+
                   px-5
+
                   text-sm
                   font-bold
                   text-white
+
                   shadow-lg
                   shadow-blue-600/20
+
                   transition-all
                   duration-300
-                  active:scale-[0.98]
+
+                  hover:from-blue-700
+                  hover:to-blue-600
+
+                  active:scale-[.98]
                 "
               >
-                <span>Start a Project</span>
+                <span className="flex items-center gap-2">
+                  <IoSparklesOutline />
+
+                  <span>Start a Project</span>
+                </span>
 
                 <span
                   className="
                     grid
+
                     h-9
                     w-9
+
                     place-items-center
+
                     rounded-xl
+
                     bg-white/15
+
+                    ring-1
+                    ring-white/10
                   "
                 >
                   <FiArrowUpRight
                     className="
                       transition-transform
                       duration-300
+
                       group-hover:-translate-y-0.5
                       group-hover:translate-x-0.5
                     "
@@ -989,20 +1401,32 @@ export default function Navbar() {
 
             <div
               className="
+                relative
+
                 border-t
-                border-slate-100
+                border-white/70
+
                 px-5
                 py-4
+
                 text-center
               "
             >
-              <p
+              <div
                 className="
-                  text-[10px]
-                  font-medium
-                  text-slate-400
+                  mx-auto
+                  mb-2
+                  h-px
+                  w-16
+
+                  bg-gradient-to-r
+                  from-transparent
+                  via-blue-300
+                  to-transparent
                 "
-              >
+              />
+
+              <p className="text-[10px] font-medium text-slate-400">
                 © {new Date().getFullYear()} Odikart Technology
               </p>
             </div>

@@ -1,26 +1,445 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { FiArrowLeft, FiArrowUpRight } from "react-icons/fi";
+import {
+  FiArrowLeft,
+  FiArrowRight,
+  FiArrowUpRight,
+  FiCheckCircle,
+  FiLayers,
+  FiMessageCircle,
+  FiZap,
+} from "react-icons/fi";
+
 import { services } from "../data/services";
+
+const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=2200&q=90";
 
 export default function ServiceDetails() {
   const { slug } = useParams();
-  const service = services.find(s => s.slug === slug);
 
-  if (!service) return <div className="px-4 pb-24 pt-40 text-center"><h1 className="text-4xl font-black">Service not found</h1><Link to="/services" className="mt-6 inline-flex items-center gap-2 text-cyan-300">Back to Services <FiArrowUpRight /></Link></div>;
+  const service = services.find((s) => s.slug === slug);
+
+  if (!service) {
+    return (
+      <section className="flex min-h-[70vh] items-center bg-white px-4 py-32">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+            <FiLayers size={26} />
+          </div>
+
+          <h1 className="mt-7 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
+            Service not found
+          </h1>
+
+          <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-slate-600">
+            The service you're looking for may have been moved or is no
+            longer available.
+          </p>
+
+          <Link
+            to="/services"
+            className="anime-shine mt-7 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700"
+          >
+            <FiArrowLeft />
+            Back to Services
+          </Link>
+        </div>
+      </section>
+    );
+  }
+
+  const Icon = service.icon;
 
   return (
-    <section className="relative overflow-hidden px-4 pb-24 pt-40">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,.18),transparent_45%)]" />
-      <div className="relative mx-auto max-w-5xl">
-        <Link to="/services" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white"><FiArrowLeft /> All services</Link>
-        <div data-aos="fade-up" className="mt-8 rounded-3xl border border-white/10 bg-white/[.035] p-7 backdrop-blur-xl sm:p-12">
-          <div className="text-4xl text-cyan-300">{service.icon}</div>
-          <h1 className="mt-6 text-4xl font-black sm:text-6xl">{service.title}</h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-400">{service.description}</p>
-          <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-950">Discuss this project <FiArrowUpRight /></Link>
+    <div className="bg-white text-slate-950">
+      {/* =========================================================
+          HERO
+      ========================================================== */}
+      <section className="relative isolate overflow-hidden">
+        {/* Natural background image */}
+        <div className="absolute inset-0">
+          <img
+            src={HERO_IMAGE}
+            alt="Digital product development"
+            className="hero-bg-image h-full w-full object-cover"
+          />
+
+          {/* Neutral readability overlays */}
+          <div className="absolute inset-0 bg-black/20" />
+
+          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
+
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/25 to-transparent" />
+
+          {/* Image naturally fades into white */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-white via-white/65 to-transparent" />
         </div>
-      </div>
-    </section>
+
+        {/* =====================================================
+            HERO CONTENT
+        ====================================================== */}
+        <div className="relative mx-auto max-w-7xl px-4 pb-28 pt-32 sm:px-6 lg:px-8 lg:pb-36 lg:pt-40">
+          {/* Back link */}
+          <Link
+            to="/services"
+            data-aos="fade-down"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-white/80 transition hover:text-white"
+          >
+            <FiArrowLeft />
+            All services
+          </Link>
+
+          <div className="mt-10 grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+            {/* Left content */}
+            <div>
+              {/* Icon */}
+              <div
+                data-aos="fade-up"
+                data-aos-delay="80"
+                className="anime-shine inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-cyan-300 shadow-lg backdrop-blur-md"
+              >
+                <Icon size={25} />
+              </div>
+
+              {/* Heading */}
+              <h1
+                data-aos="fade-up"
+                data-aos-delay="150"
+                className="mt-7 max-w-3xl text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl"
+              >
+                {service.title}
+              </h1>
+
+              {/* Description */}
+              <p
+                data-aos="fade-up"
+                data-aos-delay="220"
+                className="mt-6 max-w-2xl text-base leading-8 text-white/80 sm:text-lg"
+              >
+                {service.description}
+              </p>
+
+              {/* CTA */}
+              <div
+                data-aos="fade-up"
+                data-aos-delay="290"
+                className="mt-8 flex flex-nowrap items-center gap-3 overflow-x-auto pb-1"
+              >
+                <Link
+                  to="/contact"
+                  className="anime-shine inline-flex shrink-0 items-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700"
+                >
+                  Discuss this project
+                  <FiArrowUpRight />
+                </Link>
+
+                <Link
+                  to="/services"
+                  className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-white/25 bg-white/10 px-5 py-3.5 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/20"
+                >
+                  View all services
+                  <FiArrowRight />
+                </Link>
+              </div>
+            </div>
+
+            {/* Right product-style card */}
+            <div
+              data-aos="fade-left"
+              data-aos-delay="220"
+              className="hidden lg:block"
+            >
+              <div className="anime-shine relative overflow-hidden rounded-3xl border border-white/20 bg-white/10 p-5 shadow-2xl backdrop-blur-xl">
+                {/* Card glow */}
+                <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan-300/20 blur-3xl" />
+
+                <div className="relative rounded-2xl border border-white/15 bg-slate-950/75 p-5">
+                  {/* Fake browser/app header */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex gap-1.5">
+                      <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
+                    </div>
+
+                    <span className="rounded-full bg-white/10 px-3 py-1 text-[10px] font-bold text-white/60">
+                      PROJECT
+                    </span>
+                  </div>
+
+                  {/* Service preview */}
+                  <div className="mt-8">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/15 text-cyan-300">
+                        <Icon size={20} />
+                      </div>
+
+                      <div>
+                        <p className="text-xs font-semibold text-white/50">
+                          Selected service
+                        </p>
+
+                        <p className="mt-1 text-sm font-bold text-white">
+                          {service.title}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Progress */}
+                    <div className="mt-8">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-semibold text-white/60">
+                          Project journey
+                        </span>
+
+                        <span className="font-bold text-cyan-300">
+                          Ready to start
+                        </span>
+                      </div>
+
+                      <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
+                        <div className="h-full w-1/4 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400" />
+                      </div>
+                    </div>
+
+                    {/* Mini steps */}
+                    <div className="mt-7 grid grid-cols-3 gap-2">
+                      {["Plan", "Build", "Launch"].map((step, index) => (
+                        <div
+                          key={step}
+                          className={`rounded-xl border p-3 text-center ${
+                            index === 0
+                              ? "border-cyan-400/20 bg-cyan-400/10"
+                              : "border-white/10 bg-white/[0.03]"
+                          }`}
+                        >
+                          <div
+                            className={`mx-auto flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${
+                              index === 0
+                                ? "bg-cyan-400/15 text-cyan-300"
+                                : "bg-white/10 text-white/40"
+                            }`}
+                          >
+                            {index + 1}
+                          </div>
+
+                          <p className="mt-2 text-[11px] font-semibold text-white/60">
+                            {step}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          SERVICE OVERVIEW
+      ========================================================== */}
+      <section className="relative overflow-hidden bg-white px-4 py-20 sm:px-6 lg:px-8">
+        <div className="light-grid pointer-events-none absolute inset-0 opacity-70" />
+
+        <div className="relative mx-auto max-w-7xl">
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+            {/* Left */}
+            <div data-aos="fade-right">
+              <div className="text-sm font-bold uppercase tracking-[0.18em] text-blue-600">
+                Service overview
+              </div>
+
+              <h2 className="mt-4 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+                Technology built around your actual goal.
+              </h2>
+
+              <p className="mt-5 max-w-xl text-base leading-8 text-slate-600">
+                We focus on creating practical digital solutions rather than
+                adding technology just for the sake of it.
+              </p>
+            </div>
+
+            {/* Right */}
+            <div
+              data-aos="fade-left"
+              className="official-card anime-shine rounded-3xl p-7 sm:p-9"
+            >
+              <div className="flex items-start gap-5">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  <Icon size={22} />
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-black text-slate-950">
+                    {service.title}
+                  </h3>
+
+                  <p className="mt-3 text-base leading-8 text-slate-600">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                {[
+                  "Clear requirements",
+                  "Modern technology",
+                  "Launch focused",
+                ].map((item, index) => (
+                  <div
+                    key={item}
+                    data-aos="fade-up"
+                    data-aos-delay={index * 80}
+                    className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"
+                  >
+                    <FiCheckCircle className="shrink-0 text-blue-600" />
+                    <span className="text-sm font-semibold text-slate-700">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          HOW WE DELIVER
+      ========================================================== */}
+      <section className="bg-slate-50 px-4 py-24 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div
+            data-aos="fade-up"
+            className="max-w-3xl"
+          >
+            <div className="text-sm font-bold uppercase tracking-[0.18em] text-blue-600">
+              How we deliver
+            </div>
+
+            <h2 className="mt-4 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+              A focused workflow from discussion to delivery.
+            </h2>
+
+            <p className="mt-5 text-base leading-8 text-slate-600">
+              Every project is different, but the fundamentals stay simple:
+              understand, plan, build and improve.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                number: "01",
+                title: "Understand",
+                description:
+                  "We discuss your goals, users, requirements and the problem you're trying to solve.",
+                icon: FiMessageCircle,
+              },
+              {
+                number: "02",
+                title: "Plan",
+                description:
+                  "We shape the scope, user journey and technology approach before development.",
+                icon: FiLayers,
+              },
+              {
+                number: "03",
+                title: "Build",
+                description:
+                  "The product is developed in focused stages with regular progress and iteration.",
+                icon: FiZap,
+              },
+              {
+                number: "04",
+                title: "Launch",
+                description:
+                  "We prepare the product for real users and identify what should improve next.",
+                icon: FiArrowUpRight,
+              },
+            ].map((step, index) => {
+              const StepIcon = step.icon;
+
+              return (
+                <article
+                  key={step.number}
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                  className="official-card anime-shine group rounded-2xl p-6 transition duration-300 hover:-translate-y-2 hover:shadow-xl"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white">
+                      <StepIcon size={19} />
+                    </div>
+
+                    <span className="text-sm font-black tracking-widest text-slate-300">
+                      {step.number}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-7 text-xl font-black text-slate-950">
+                    {step.title}
+                  </h3>
+
+                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                    {step.description}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          FINAL CTA
+      ========================================================== */}
+      <section className="px-4 py-24 sm:px-6 lg:px-8">
+        <div
+          data-aos="zoom-in"
+          className="anime-shine relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-slate-950 px-6 py-14 sm:px-10 lg:px-14"
+        >
+          <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-600/20 blur-3xl" />
+
+          <div className="pointer-events-none absolute -bottom-24 left-1/3 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
+
+          <div className="relative z-10 max-w-3xl">
+            <div className="text-sm font-bold uppercase tracking-[0.18em] text-cyan-300">
+              Let's build it
+            </div>
+
+            <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl">
+              Have a project in mind?
+            </h2>
+
+            <p className="mt-4 max-w-2xl text-base leading-8 text-slate-300">
+              Tell us what you want to build and we'll help you figure out
+              the right technology, scope and next step.
+            </p>
+
+            <div className="mt-7 flex flex-nowrap items-center gap-3 overflow-x-auto pb-1">
+              <Link
+                to="/contact"
+                className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-blue-500"
+              >
+                Start a conversation
+                <FiArrowRight />
+              </Link>
+
+              <Link
+                to="/process"
+                className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-white/10"
+              >
+                See our process
+                <FiArrowUpRight />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
