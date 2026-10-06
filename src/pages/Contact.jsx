@@ -377,30 +377,131 @@ export default function Contact() {
 
               {/* Hero buttons */}
 
-              <div
-                data-aos="fade-up"
-                data-aos-delay="360"
-                className="mt-8 flex flex-nowrap items-center gap-3 overflow-x-auto pb-1"
-              >
+           <div
+  data-aos="fade-up"
+  data-aos-delay="360"
+  className="
+    mt-8
+    flex
+    w-full
+    max-w-[520px]
+    items-center
+    gap-2
+    overflow-hidden
+    sm:gap-3
+  "
+>
+  <a
+    href="#contact-form"
+    className="
+      anime-shine
+      group
+      inline-flex
+      min-w-0
+      flex-1
+      items-center
+      justify-center
+      gap-1.5
+      overflow-hidden
+      rounded-xl
+      bg-blue-600
+      px-3
+      py-2.5
+      text-[11px]
+      font-bold
+      leading-none
+      text-white
+      shadow-lg
+      shadow-blue-600/25
+      transition-all
+      duration-300
+      hover:-translate-y-0.5
+      hover:bg-blue-700
+      hover:shadow-blue-600/35
+      active:scale-[.97]
+      focus:outline-none
+      focus:ring-4
+      focus:ring-blue-500/20
+      sm:px-4
+      sm:py-3
+      sm:text-xs
+      md:px-5
+      md:py-3.5
+      md:text-sm
+    "
+  >
+    <span className="truncate">Start a conversation</span>
 
-                <a
-                  href="#contact-form"
-                  className="anime-shine inline-flex shrink-0 items-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700"
-                >
-                  Start a conversation
-                  <FiArrowRight />
-                </a>
+    <FiArrowRight
+      className="
+        h-3.5
+        w-3.5
+        shrink-0
+        transition-transform
+        duration-300
+        group-hover:translate-x-1
+        sm:h-4
+        sm:w-4
+      "
+    />
+  </a>
 
-                <Link
-                  to="/services"
-                  className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3.5 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/20"
-                >
-                  Explore services
-                  <FiArrowUpRight />
-                </Link>
+  <Link
+    to="/services"
+    className="
+      group
+      inline-flex
+      min-w-0
+      flex-1
+      items-center
+      justify-center
+      gap-1.5
+      overflow-hidden
+      rounded-xl
+      border
+      border-white/20
+      bg-white/10
+      px-3
+      py-2.5
+      text-[11px]
+      font-bold
+      leading-none
+      text-white
+      backdrop-blur-md
+      transition-all
+      duration-300
+      hover:-translate-y-0.5
+      hover:bg-white/20
+      hover:border-white/30
+      active:scale-[.97]
+      focus:outline-none
+      focus:ring-4
+      focus:ring-white/10
+      sm:px-4
+      sm:py-3
+      sm:text-xs
+      md:px-5
+      md:py-3.5
+      md:text-sm
+    "
+  >
+    <span className="truncate">Explore services</span>
 
-              </div>
-
+    <FiArrowUpRight
+      className="
+        h-3.5
+        w-3.5
+        shrink-0
+        transition-transform
+        duration-300
+        group-hover:-translate-y-0.5
+        group-hover:translate-x-0.5
+        sm:h-4
+        sm:w-4
+      "
+    />
+  </Link>
+</div>
             </div>
 
             {/* =====================================================
@@ -1050,47 +1151,62 @@ export default function Contact() {
 
                   {/* SUBMIT AREA */}
 
-                  <div className="mt-5 flex flex-nowrap items-center justify-between gap-4 overflow-x-auto">
+                 <div
+  className="
+    mt-5
+    flex
+    w-full
+    flex-col
+    gap-4
+    sm:flex-row
+    sm:items-center
+    sm:justify-between
+  "
+>
+  <p
+    className="
+      min-w-0
+      text-[11px]
+      leading-5
+      text-slate-400
+      sm:max-w-[260px]
+    "
+  >
+    We'll use these details only to understand your project.
+  </p>
 
-                    <p className="min-w-[190px] text-[11px] leading-5 text-slate-400">
-                      We'll use these details only to understand your project.
-                    </p>
+  <button
+    type="submit"
+    disabled={isSending}
+    className={`anime-shine group inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-white shadow-[0_14px_35px_rgba(37,99,235,.25)] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500/20 sm:w-auto sm:px-6 ${
+      isSending
+        ? "cursor-not-allowed bg-blue-400"
+        : "bg-blue-600 hover:-translate-y-0.5 hover:bg-blue-500 active:scale-[0.96]"
+    }`}
+  >
+    {isSending ? (
+      <>
+        <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+        <span>Sending...</span>
+      </>
+    ) : (
+      <>
+        <span>Send enquiry</span>
 
-                    <button
-                      type="submit"
-                      disabled={isSending}
-                      className={`anime-shine group inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold text-white shadow-[0_14px_35px_rgba(37,99,235,.25)] transition duration-200 focus:outline-none focus:ring-4 focus:ring-blue-500/20 ${
-                        isSending
-                          ? "cursor-not-allowed bg-blue-400"
-                          : "bg-blue-600 hover:-translate-y-0.5 hover:bg-blue-500 active:scale-[0.96]"
-                      }`}
-                    >
-
-                      {isSending ? (
-
-                        <>
-
-                          <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-
-                          Sending...
-
-                        </>
-
-                      ) : (
-
-                        <>
-
-                          Send enquiry
-
-                          <FiArrowUpRight className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-
-                        </>
-
-                      )}
-
-                    </button>
-
-                  </div>
+        <FiArrowUpRight
+          className="
+            h-4
+            w-4
+            transition-transform
+            duration-300
+            group-hover:-translate-y-0.5
+            group-hover:translate-x-0.5
+          "
+        />
+      </>
+    )}
+  </button>
+</div>
 
                 </>
 
@@ -1156,60 +1272,7 @@ export default function Contact() {
           FINAL CTA
       ========================================================== */}
 
-      <section className="bg-white px-4 pb-20 sm:px-6 sm:pb-28 lg:px-8">
-
-        <div
-          data-aos="zoom-in"
-          className="anime-shine relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-slate-950 px-6 py-14 shadow-[0_30px_90px_rgba(15,23,42,.15)] sm:px-10 sm:py-16 lg:px-14"
-        >
-
-          {/* Ambient glow */}
-
-          <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-600/20 blur-3xl" />
-
-          <div className="pointer-events-none absolute -bottom-24 left-1/3 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
-
-          <div className="relative z-10 max-w-3xl">
-
-            <div className="text-sm font-bold uppercase tracking-[0.18em] text-cyan-300">
-              Start something useful
-            </div>
-
-            <h2 className="mt-4 text-3xl font-black tracking-[-0.05em] text-white sm:text-5xl">
-              Not sure where to start?
-            </h2>
-
-            <p className="mt-4 max-w-xl text-sm leading-7 text-slate-400 sm:text-base">
-              That's okay. Start with the problem you're trying to solve,
-              and we'll work from there.
-            </p>
-
-            <div className="mt-7 flex flex-nowrap items-center gap-3 overflow-x-auto pb-1">
-
-              <Link
-                to="/services"
-                className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-blue-50"
-              >
-                Explore what we build
-                <FiArrowRight />
-              </Link>
-
-              <Link
-                to="/process"
-                className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-white/10"
-              >
-                See our process
-                <FiArrowUpRight />
-              </Link>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
+     
     </main>
   );
 }

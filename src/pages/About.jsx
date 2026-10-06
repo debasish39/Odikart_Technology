@@ -124,27 +124,170 @@ export default function About() {
               </p>
 
               {/* Buttons — one row */}
-              <div
-                data-aos="fade-up"
-                data-aos-delay="300"
-                className="mt-8 flex flex-nowrap items-center gap-2 overflow-x-auto rounded-full border border-white/15 bg-white/10 p-1.5 shadow-[0_18px_55px_rgba(0,0,0,.22)] backdrop-blur-xl w-fit max-w-full"
-              >
-                <Link
-                  to="/contact"
-                  className="anime-shine group inline-flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-full bg-blue-600 px-5 py-3 text-xs font-bold text-white shadow-[0_10px_30px_rgba(37,99,235,.32)] transition duration-200 hover:-translate-y-0.5 hover:bg-blue-500 active:scale-[.95] focus:outline-none focus:ring-4 focus:ring-blue-500/20 sm:text-sm"
-                >
-                  Start a project
-                  <FiArrowUpRight className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </Link>
+            <div
+  data-aos="fade-up"
+  data-aos-delay="300"
+  className="
+    mt-8
+    flex
+    w-full
+    max-w-full
+    items-center
+    gap-2
+    overflow-hidden
+    sm:w-fit
+    sm:gap-3
+  "
+>
+  {/* Start a Project */}
+  <Link
+    to="/contact"
+    className="
+      anime-shine
+      group
+      inline-flex
+      min-w-0
+      flex-1
+      items-center
+      justify-center
+      gap-1.5
+      overflow-hidden
+      rounded-full
 
-                <Link
-                  to="/services"
-                  className="group inline-flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-full px-5 py-3 text-xs font-bold text-white/80 transition duration-200 hover:bg-white/10 hover:text-white active:scale-[.95] sm:text-sm"
-                >
-                  What we do
-                  <FiArrowRight className="transition group-hover:translate-x-1" />
-                </Link>
-              </div>
+      bg-blue-600
+      px-3
+      py-2.5
+
+      text-[11px]
+      font-bold
+      leading-none
+      text-white
+
+      shadow-[0_12px_32px_rgba(37,99,235,.25)]
+
+      transition-all
+      duration-300
+
+      hover:-translate-y-0.5
+      hover:bg-blue-500
+      hover:shadow-[0_16px_38px_rgba(37,99,235,.32)]
+
+      active:scale-[.97]
+
+      focus:outline-none
+      focus:ring-4
+      focus:ring-blue-500/20
+
+      sm:min-w-[145px]
+      sm:flex-none
+      sm:px-5
+      sm:py-3
+      sm:text-xs
+
+      md:min-w-[155px]
+      md:px-6
+      md:py-3.5
+      md:text-sm
+    "
+  >
+    <span className="truncate">
+      Start a project
+    </span>
+
+    <FiArrowRight
+      className="
+        h-3.5
+        w-3.5
+        shrink-0
+
+        transition-transform
+        duration-300
+
+        group-hover:translate-x-1
+
+        sm:h-4
+        sm:w-4
+      "
+    />
+  </Link>
+
+
+  {/* Explore Services */}
+  <Link
+    to="/services"
+    className="
+      group
+      inline-flex
+      min-w-0
+      flex-1
+      items-center
+      justify-center
+      gap-1.5
+      overflow-hidden
+      rounded-full
+
+      border
+      border-white/20
+
+      bg-white/10
+
+      px-3
+      py-2.5
+
+      text-[11px]
+      font-bold
+      leading-none
+      text-white
+
+      backdrop-blur-xl
+
+      transition-all
+      duration-300
+
+      hover:-translate-y-0.5
+      hover:border-white/30
+      hover:bg-white/15
+
+      active:scale-[.97]
+
+      focus:outline-none
+      focus:ring-4
+      focus:ring-white/10
+
+      sm:min-w-[145px]
+      sm:flex-none
+      sm:px-5
+      sm:py-3
+      sm:text-xs
+
+      md:min-w-[155px]
+      md:px-6
+      md:py-3.5
+      md:text-sm
+    "
+  >
+    <span className="truncate">
+      Explore services
+    </span>
+
+    <FiArrowUpRight
+      className="
+        h-3.5
+        w-3.5
+        shrink-0
+
+        transition-transform
+        duration-300
+
+        group-hover:-translate-y-0.5
+        group-hover:translate-x-0.5
+
+        sm:h-4
+        sm:w-4
+      "
+    />
+  </Link>
+</div>
 
               {/* Trust points */}
               <div
@@ -170,115 +313,7 @@ export default function About() {
             </div>
 
             {/* Product-style visual */}
-            <div
-              data-aos="fade-left"
-              data-aos-delay="180"
-              className="relative mx-auto w-full max-w-xl lg:mx-0"
-            >
-              {/* Neutral floating glow */}
-              <div className="anime-float pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-white/10 blur-3xl" />
-
-              <div className="anime-float pointer-events-none absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-white/10 blur-3xl [animation-delay:1.5s]" />
-
-              <div className="anime-shine relative overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 p-2 shadow-[0_35px_100px_rgba(0,0,0,.35)] backdrop-blur-xl">
-                <div className="relative overflow-hidden rounded-[1.6rem] bg-white p-6 sm:p-8">
-                  {/* Small app header */}
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-[9px] font-black uppercase tracking-[.2em] text-blue-600">
-                        Odikart Technology
-                      </p>
-
-                      <p className="mt-1 text-xs text-slate-400">
-                        Digital product studio
-                      </p>
-                    </div>
-
-                    <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-[9px] font-bold text-slate-600">
-                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500" />
-                      Active
-                    </span>
-                  </div>
-
-                  {/* Main visual */}
-                  <div className="mt-12">
-                    <div className="grid h-14 w-14 place-items-center rounded-2xl bg-blue-600 text-xl text-white shadow-[0_0_35px_rgba(37,99,235,.25)]">
-                      <IoSparklesOutline />
-                    </div>
-
-                    <h2 className="mt-6 max-w-md text-3xl font-black leading-tight tracking-[-.04em] text-slate-950 sm:text-4xl">
-                      Build something useful.
-                      <span className="block text-blue-600">
-                        Make it ready for what's next.
-                      </span>
-                    </h2>
-
-                    <p className="mt-4 max-w-md text-sm leading-6 text-slate-500">
-                      Strategy, design, engineering and practical AI working
-                      together around a clear business goal.
-                    </p>
-                  </div>
-
-                  {/* Capability chips */}
-                  <div className="mt-8 flex flex-wrap gap-2">
-                    {["Design", "Engineering", "AI", "Growth"].map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-[10px] font-bold text-slate-600"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Mini dashboard */}
-                  <div className="mt-8 grid grid-cols-2 gap-3">
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                      <p className="text-[9px] font-black uppercase tracking-[.15em] text-slate-400">
-                        Focus
-                      </p>
-
-                      <p className="mt-2 text-sm font-bold text-slate-950">
-                        Real users
-                      </p>
-                    </div>
-
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                      <p className="text-[9px] font-black uppercase tracking-[.15em] text-slate-400">
-                        Approach
-                      </p>
-
-                      <p className="mt-2 text-sm font-bold text-slate-950">
-                        Build & evolve
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating badge */}
-              <div
-                data-aos="zoom-in"
-                data-aos-delay="500"
-                className="anime-shine absolute -bottom-6 left-5 hidden rounded-2xl border border-slate-200/80 bg-white/95 p-4 shadow-[0_20px_60px_rgba(15,23,42,.18)] backdrop-blur-xl sm:block"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-blue-50 text-blue-600">
-                    <FiShield />
-                  </div>
-
-                  <div>
-                    <p className="text-xs font-black text-slate-950">
-                      Built responsibly.
-                    </p>
-
-                    <p className="mt-1 text-[10px] text-slate-500">
-                      Clean foundations that can grow.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+           
           </div>
         </div>
 
@@ -392,7 +427,7 @@ export default function About() {
       {/* =========================================================
           CLOSING CTA
       ========================================================== */}
-      <section className="relative overflow-hidden bg-white px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
+      {/* <section className="relative overflow-hidden bg-white px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-[42rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/5 blur-[130px]" />
 
         <div
@@ -419,26 +454,10 @@ export default function About() {
               experience around it.
             </p>
 
-            <div className="mt-8 flex flex-nowrap items-center justify-center gap-3 overflow-x-auto pb-1">
-              <Link
-                to="/contact"
-                className="anime-shine group inline-flex shrink-0 items-center gap-2 rounded-full bg-blue-600 px-6 py-3.5 text-sm font-bold text-white shadow-[0_15px_40px_rgba(37,99,235,.30)] transition duration-200 hover:-translate-y-0.5 hover:bg-blue-500 active:scale-[.96] focus:outline-none focus:ring-4 focus:ring-blue-500/20"
-              >
-                Start a conversation
-                <FiArrowUpRight className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </Link>
 
-              <Link
-                to="/services"
-                className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/15 bg-white/10 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/15"
-              >
-                Explore services
-                <FiArrowRight />
-              </Link>
-            </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Reduced-motion support */}
       <style>{`

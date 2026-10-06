@@ -118,27 +118,132 @@ export default function FAQ() {
             </p>
 
             {/* Buttons — one row */}
-            <div
-              data-aos="fade-up"
-              data-aos-delay="300"
-              className="mt-8 flex w-fit max-w-full flex-nowrap items-center gap-2 overflow-x-auto rounded-full border border-white/15 bg-white/10 p-1.5 shadow-[0_18px_55px_rgba(0,0,0,.22)] backdrop-blur-xl"
-            >
-              <Link
-                to="/contact"
-                className="anime-shine group inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-xs font-bold text-white shadow-[0_10px_30px_rgba(37,99,235,.30)] transition duration-200 hover:-translate-y-0.5 hover:bg-blue-500 active:scale-[.95] sm:text-sm"
-              >
-                Ask us directly
-                <FiArrowRight className="transition group-hover:translate-x-1" />
-              </Link>
+           <div
+  data-aos="fade-up"
+  data-aos-delay="300"
+  className="
+    mt-8
+    flex
+    w-full
+    max-w-[520px]
+    items-center
+    gap-1.5
+    overflow-hidden
+    rounded-full
+    border
+    border-white/15
+    bg-white/10
+    p-1.5
+    shadow-[0_18px_55px_rgba(0,0,0,.22)]
+    backdrop-blur-xl
+    sm:gap-2
+  "
+>
+  <Link
+    to="/contact"
+    className="
+      anime-shine
+      group
+      inline-flex
+      min-h-10
+      min-w-0
+      flex-1
+      items-center
+      justify-center
+      gap-1.5
+      overflow-hidden
+      rounded-full
+      bg-blue-600
+      px-3
+      py-2.5
+      text-[11px]
+      font-bold
+      leading-none
+      text-white
+      shadow-[0_10px_30px_rgba(37,99,235,.30)]
+      transition-all
+      duration-300
+      hover:-translate-y-0.5
+      hover:bg-blue-500
+      active:scale-[.97]
+      focus:outline-none
+      focus:ring-4
+      focus:ring-blue-500/20
+      sm:min-h-11
+      sm:px-4
+      sm:py-3
+      sm:text-xs
+      md:px-5
+      md:text-sm
+    "
+  >
+    <span className="truncate">Ask us directly</span>
 
-              <Link
-                to="/services"
-                className="group inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full px-5 py-3 text-xs font-bold text-white/80 transition duration-200 hover:bg-white/10 hover:text-white active:scale-[.95] sm:text-sm"
-              >
-                Explore services
-                <FiArrowRight className="transition group-hover:translate-x-1" />
-              </Link>
-            </div>
+    <FiArrowRight
+      className="
+        h-3.5
+        w-3.5
+        shrink-0
+        transition-transform
+        duration-300
+        group-hover:translate-x-1
+        sm:h-4
+        sm:w-4
+      "
+    />
+  </Link>
+
+  <Link
+    to="/services"
+    className="
+      group
+      inline-flex
+      min-h-10
+      min-w-0
+      flex-1
+      items-center
+      justify-center
+      gap-1.5
+      overflow-hidden
+      rounded-full
+      px-3
+      py-2.5
+      text-[11px]
+      font-bold
+      leading-none
+      text-white/80
+      transition-all
+      duration-300
+      hover:bg-white/10
+      hover:text-white
+      active:scale-[.97]
+      focus:outline-none
+      focus:ring-4
+      focus:ring-white/10
+      sm:min-h-11
+      sm:px-4
+      sm:py-3
+      sm:text-xs
+      md:px-5
+      md:text-sm
+    "
+  >
+    <span className="truncate">Explore services</span>
+
+    <FiArrowRight
+      className="
+        h-3.5
+        w-3.5
+        shrink-0
+        transition-transform
+        duration-300
+        group-hover:translate-x-1
+        sm:h-4
+        sm:w-4
+      "
+    />
+  </Link>
+</div>
 
             {/* Quick information */}
             <div
@@ -262,8 +367,7 @@ export default function FAQ() {
                 ACCORDION
             ==================================================== */}
             <div
-              data-aos="fade-left"
-              data-aos-delay="100"
+             
               className="space-y-3"
             >
               {faqs.map((faq, index) => {
@@ -272,8 +376,7 @@ export default function FAQ() {
                 return (
                   <div
                     key={faq.question}
-                    data-aos="fade-up"
-                    data-aos-delay={index * 70}
+                  
                     className={`anime-shine overflow-hidden rounded-[1.5rem] border bg-white shadow-[0_10px_35px_rgba(15,23,42,.04)] transition-all duration-300 ${
                       isOpen
                         ? "border-blue-200 shadow-[0_18px_45px_rgba(37,99,235,.08)]"
@@ -352,49 +455,7 @@ export default function FAQ() {
       {/* =========================================================
           FINAL CTA
       ========================================================== */}
-      <section className="bg-white px-4 pb-20 pt-4 sm:px-6 sm:pb-28 lg:px-8">
-        <div
-          data-aos="zoom-in"
-          className="anime-shine relative mx-auto max-w-6xl overflow-hidden rounded-[2.5rem] bg-slate-950 px-6 py-12 shadow-[0_30px_90px_rgba(15,23,42,.15)] sm:px-10 sm:py-16"
-        >
-          {/* Ambient glow */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(37,99,235,.22),transparent_38%)]" />
-
-          <div className="relative max-w-3xl">
-            <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white/10 text-xl text-white">
-              <FiMessageCircle />
-            </div>
-
-            <h2 className="mt-6 text-3xl font-black tracking-[-0.05em] text-white sm:text-5xl">
-              Still have questions?
-            </h2>
-
-            <p className="mt-4 max-w-xl text-sm leading-7 text-slate-400 sm:text-base">
-              No problem. Tell us what you're trying to build and we'll start
-              the conversation from there.
-            </p>
-
-            {/* CTA buttons — one row */}
-            <div className="mt-7 flex flex-nowrap items-center gap-3 overflow-x-auto pb-1">
-              <Link
-                to="/contact"
-                className="anime-shine group inline-flex shrink-0 items-center gap-2 rounded-full bg-blue-600 px-6 py-3.5 text-sm font-bold text-white shadow-[0_15px_40px_rgba(37,99,235,.25)] transition hover:-translate-y-0.5 hover:bg-blue-500 active:scale-[0.96]"
-              >
-                Contact us
-                <FiArrowRight className="transition group-hover:translate-x-1" />
-              </Link>
-
-              <Link
-                to="/services"
-                className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-6 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-white/[0.1] active:scale-[0.96]"
-              >
-                Explore services
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
+ 
       {/* Reduced motion */}
       <style>{`
         @media (prefers-reduced-motion: reduce) {

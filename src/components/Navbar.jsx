@@ -1037,14 +1037,14 @@ export default function Navbar() {
                   "
                 >
                   <img
-                    src="/logo.png"
+                    src="/banner.png"
                     alt="Odikart Technology"
                     className="
                       relative
                       z-10
 
-                      h-[72%]
-                      w-[72%]
+                      h-[99%]
+                      w-[99%]
 
                       object-contain
 

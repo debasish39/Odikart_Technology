@@ -78,28 +78,130 @@ export default function Process() {
               the process unnecessarily complicated.
             </p>
 
-            {/* Buttons */}
-            <div
-              data-aos="fade-up"
-              data-aos-delay="260"
-              className="mt-8 flex flex-nowrap items-center gap-3 overflow-x-auto pb-1"
-            >
-              <Link
-                to="/contact"
-                className="anime-shine inline-flex shrink-0 items-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700"
-              >
-                Start a project
-                <FiArrowRight />
-              </Link>
+       <div
+  data-aos="fade-up"
+  data-aos-delay="260"
+  className="
+    mt-8
+    flex
+    w-full
+    max-w-[520px]
+    items-center
+    gap-2
+    overflow-hidden
+    sm:gap-3
+  "
+>
+  <Link
+    to="/contact"
+    className="
+      anime-shine
+      group
+      inline-flex
+      min-w-0
+      flex-1
+      items-center
+      justify-center
+      gap-1.5
+      overflow-hidden
+      rounded-xl
+      bg-blue-600
+      px-3
+      py-2.5
+      text-[11px]
+      font-bold
+      leading-none
+      text-white
+      shadow-lg
+      shadow-blue-600/25
+      transition-all
+      duration-300
+      hover:-translate-y-0.5
+      hover:bg-blue-700
+      hover:shadow-blue-600/35
+      active:scale-[0.97]
+      focus:outline-none
+      focus:ring-4
+      focus:ring-blue-500/20
+      sm:px-4
+      sm:py-3
+      sm:text-xs
+      md:px-5
+      md:py-3.5
+      md:text-sm
+    "
+  >
+    <span className="truncate">Start a project</span>
 
-              <Link
-                to="/services"
-                className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-white/25 bg-white/10 px-5 py-3.5 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/20"
-              >
-                Explore services
-                <FiChevronRight />
-              </Link>
-            </div>
+    <FiArrowRight
+      className="
+        h-3.5
+        w-3.5
+        shrink-0
+        transition-transform
+        duration-300
+        group-hover:translate-x-1
+        sm:h-4
+        sm:w-4
+      "
+    />
+  </Link>
+
+  <Link
+    to="/services"
+    className="
+      group
+      inline-flex
+      min-w-0
+      flex-1
+      items-center
+      justify-center
+      gap-1.5
+      overflow-hidden
+      rounded-xl
+      border
+      border-white/25
+      bg-white/10
+      px-3
+      py-2.5
+      text-[11px]
+      font-bold
+      leading-none
+      text-white
+      backdrop-blur-md
+      transition-all
+      duration-300
+      hover:-translate-y-0.5
+      hover:bg-white/20
+      hover:border-white/35
+      active:scale-[0.97]
+      focus:outline-none
+      focus:ring-4
+      focus:ring-white/10
+      sm:px-4
+      sm:py-3
+      sm:text-xs
+      md:px-5
+      md:py-3.5
+      md:text-sm
+    "
+  >
+    <span className="truncate">Explore services</span>
+
+    <FiChevronRight
+      className="
+        h-3.5
+        w-3.5
+        shrink-0
+        transition-transform
+        duration-300
+        group-hover:translate-x-1
+        sm:h-4
+        sm:w-4
+      "
+    />
+  </Link>
+</div>
 
             {/* Trust points */}
             <div
@@ -318,54 +420,6 @@ export default function Process() {
                   </div>
                 );
               })}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          FINAL CTA
-      ========================================================== */}
-      <section className="px-4 pb-24 sm:px-6 lg:px-8">
-        <div
-          data-aos="zoom-in"
-          className="anime-shine relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-slate-950 px-6 py-14 sm:px-10 lg:px-14"
-        >
-          {/* Ambient effects */}
-          <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-blue-600/20 blur-3xl" />
-
-          <div className="pointer-events-none absolute -bottom-24 left-1/3 h-64 w-64 rounded-full bg-cyan-500/10 blur-3xl" />
-
-          <div className="relative z-10 max-w-3xl">
-            <div className="text-sm font-bold uppercase tracking-[0.18em] text-cyan-300">
-              Ready when you are
-            </div>
-
-            <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl">
-              Have an idea? Let's turn it into something real.
-            </h2>
-
-            <p className="mt-4 max-w-2xl text-base leading-8 text-slate-300">
-              Tell us what you're building, where you are right now and what
-              you want to achieve. We'll help you figure out the next step.
-            </p>
-
-            <div className="mt-7 flex flex-nowrap items-center gap-3 overflow-x-auto pb-1">
-              <Link
-                to="/contact"
-                className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-blue-500"
-              >
-                Start a conversation
-                <FiArrowRight />
-              </Link>
-
-              <Link
-                to="/services"
-                className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-white/10"
-              >
-                View services
-                <FiChevronRight />
-              </Link>
             </div>
           </div>
         </div>

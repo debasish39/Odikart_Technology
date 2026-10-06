@@ -312,80 +312,170 @@ export default function Work() {
                   HERO BUTTONS
               ================================================== */}
 
-              <div
-                data-aos="fade-up"
-                data-aos-delay="300"
-                className="
-                  mt-8
-                  flex
-                  flex-nowrap
-                  items-center
-                  gap-3
-                "
-              >
-                <Link
-                  to="/contact"
-                  className="
-                    anime-shine
-                    group
-                    inline-flex
-                    shrink-0
-                    items-center
-                    gap-2
-                    rounded-full
-                    bg-blue-600
-                    px-6
-                    py-3.5
-                    text-sm
-                    font-bold
-                    text-white
-                    shadow-[0_15px_40px_rgba(37,99,235,.28)]
-                    transition
-                    duration-200
-                    hover:-translate-y-0.5
-                    hover:bg-blue-500
-                    active:scale-[0.96]
-                  "
-                >
-                  Start a project
+            <div
+  data-aos="fade-up"
+  data-aos-delay="300"
+  className="
+    mt-8
+    flex
+    w-full
+    max-w-full
+    items-center
+    gap-2
+    overflow-hidden
+    sm:w-fit
+    sm:gap-3
+  "
+>
+  {/* Start a Project */}
+  <Link
+    to="/contact"
+    className="
+      anime-shine
+      group
+      inline-flex
+      min-w-0
+      flex-1
+      items-center
+      justify-center
+      gap-1.5
+      overflow-hidden
+      rounded-full
 
-                  <FiArrowRight
-                    className="
-                      transition
-                      group-hover:translate-x-1
-                    "
-                  />
-                </Link>
+      bg-blue-600
+      px-3
+      py-2.5
 
-                <Link
-                  to="/services"
-                  className="
-                    inline-flex
-                    shrink-0
-                    items-center
-                    gap-2
-                    rounded-full
-                    border
-                    border-white/20
-                    bg-white/10
-                    px-6
-                    py-3.5
-                    text-sm
-                    font-bold
-                    text-white
-                    backdrop-blur-xl
-                    transition
-                    duration-200
-                    hover:-translate-y-0.5
-                    hover:bg-white/15
-                    active:scale-[0.96]
-                  "
-                >
-                  Explore services
+      text-[11px]
+      font-bold
+      leading-none
+      text-white
 
-                  <FiArrowUpRight />
-                </Link>
-              </div>
+      shadow-[0_12px_32px_rgba(37,99,235,.25)]
+
+      transition-all
+      duration-300
+
+      hover:-translate-y-0.5
+      hover:bg-blue-500
+      hover:shadow-[0_16px_38px_rgba(37,99,235,.32)]
+
+      active:scale-[.97]
+
+      focus:outline-none
+      focus:ring-4
+      focus:ring-blue-500/20
+
+      sm:min-w-[145px]
+      sm:flex-none
+      sm:px-5
+      sm:py-3
+      sm:text-xs
+
+      md:min-w-[155px]
+      md:px-6
+      md:py-3.5
+      md:text-sm
+    "
+  >
+    <span className="truncate">
+      Start a project
+    </span>
+
+    <FiArrowRight
+      className="
+        h-3.5
+        w-3.5
+        shrink-0
+
+        transition-transform
+        duration-300
+
+        group-hover:translate-x-1
+
+        sm:h-4
+        sm:w-4
+      "
+    />
+  </Link>
+
+
+  {/* Explore Services */}
+  <Link
+    to="/services"
+    className="
+      group
+      inline-flex
+      min-w-0
+      flex-1
+      items-center
+      justify-center
+      gap-1.5
+      overflow-hidden
+      rounded-full
+
+      border
+      border-white/20
+
+      bg-white/10
+
+      px-3
+      py-2.5
+
+      text-[11px]
+      font-bold
+      leading-none
+      text-white
+
+      backdrop-blur-xl
+
+      transition-all
+      duration-300
+
+      hover:-translate-y-0.5
+      hover:border-white/30
+      hover:bg-white/15
+
+      active:scale-[.97]
+
+      focus:outline-none
+      focus:ring-4
+      focus:ring-white/10
+
+      sm:min-w-[145px]
+      sm:flex-none
+      sm:px-5
+      sm:py-3
+      sm:text-xs
+
+      md:min-w-[155px]
+      md:px-6
+      md:py-3.5
+      md:text-sm
+    "
+  >
+    <span className="truncate">
+      Explore services
+    </span>
+
+    <FiArrowUpRight
+      className="
+        h-3.5
+        w-3.5
+        shrink-0
+
+        transition-transform
+        duration-300
+
+        group-hover:-translate-y-0.5
+        group-hover:translate-x-0.5
+
+        sm:h-4
+        sm:w-4
+      "
+    />
+  </Link>
+</div>
 
               {/* ==================================================
                   PILLS
@@ -1329,167 +1419,7 @@ export default function Work() {
           FINAL CTA
       ====================================================== */}
 
-      <section
-        className="
-          bg-white
-          px-4
-          pb-20
-          sm:px-6
-          sm:pb-28
-          lg:px-8
-        "
-      >
-        <div
-          data-aos="zoom-in"
-          className="
-            anime-shine
-            relative
-            mx-auto
-            max-w-6xl
-            overflow-hidden
-            rounded-[2.5rem]
-            bg-slate-950
-            px-6
-            py-12
-            text-center
-            shadow-[0_30px_90px_rgba(15,23,42,.15)]
-            sm:px-10
-            sm:py-16
-          "
-        >
-
-          {/* ==================================================
-              SUBTLE CTA GLOW
-          ================================================== */}
-
-          <div
-            className="
-              pointer-events-none
-              absolute
-              inset-0
-              bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,.22),transparent_45%)]
-            "
-          />
-
-          <div className="relative">
-
-            <div
-              className="
-                mx-auto
-                grid
-                h-12
-                w-12
-                place-items-center
-                rounded-2xl
-                bg-white/10
-                text-xl
-                text-cyan-300
-              "
-            >
-              <IoSparklesOutline />
-            </div>
-
-            <h2
-              className="
-                mt-6
-                text-3xl
-                font-black
-                tracking-[-0.05em]
-                text-white
-                sm:text-5xl
-              "
-            >
-              Have an idea of your own?
-            </h2>
-
-            <p
-              className="
-                mx-auto
-                mt-4
-                max-w-xl
-                text-sm
-                leading-7
-                text-slate-400
-                sm:text-base
-              "
-            >
-              Let's turn the idea into a practical digital
-              product with the right technology, experience
-              and execution.
-            </p>
-
-            {/* ==================================================
-                CTA BUTTONS
-            ================================================== */}
-
-            <div
-              className="
-                mt-7
-                flex
-                flex-nowrap
-                justify-center
-                gap-3
-              "
-            >
-              <Link
-                to="/contact"
-                className="
-                  group
-                  inline-flex
-                  shrink-0
-                  items-center
-                  gap-2
-                  rounded-full
-                  bg-white
-                  px-6
-                  py-3.5
-                  text-sm
-                  font-bold
-                  text-slate-950
-                  transition
-                  hover:-translate-y-0.5
-                  hover:bg-blue-50
-                  active:scale-[0.96]
-                "
-              >
-                Start a project
-
-                <FiArrowRight
-                  className="
-                    transition
-                    group-hover:translate-x-1
-                  "
-                />
-              </Link>
-
-              <Link
-                to="/services"
-                className="
-                  inline-flex
-                  shrink-0
-                  items-center
-                  gap-2
-                  rounded-full
-                  border
-                  border-white/10
-                  bg-white/[0.06]
-                  px-6
-                  py-3.5
-                  text-sm
-                  font-bold
-                  text-white
-                  transition
-                  hover:-translate-y-0.5
-                  hover:bg-white/[0.1]
-                  active:scale-[0.96]
-                "
-              >
-                Explore services
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+    
     </main>
   );
 }

@@ -458,111 +458,183 @@ export default function Home() {
               ================================================== */}
 
               <div
-                data-aos="fade-up"
-                data-aos-delay="180"
-                className="
-                  mt-8
-                  flex
-                  w-fit
-                  max-w-full
-                  items-center
-                  gap-2
-                  rounded-full
-                  border
-                  border-white/15
-                  bg-black/20
-                  p-1.5
-                  shadow-[0_18px_55px_rgba(0,0,0,.22)]
-                  backdrop-blur-xl
-                  sm:gap-3
-                "
-              >
-                <Link
-                  to="/contact"
-                  className="
-                    anime-shine
-                    group
-                    inline-flex
-                    min-h-11
-                    items-center
-                    justify-center
-                    gap-1.5
-                    rounded-full
-                    bg-blue-600
-                    px-4
-                    py-3
-                    text-xs
-                    font-bold
-                    text-white
-                    shadow-[0_10px_30px_rgba(37,99,235,.30)]
-                    transition
-                    duration-200
-                    hover:-translate-y-0.5
-                    hover:bg-blue-500
-                    active:scale-[.95]
-                    focus:outline-none
-                    focus:ring-4
-                    focus:ring-blue-500/20
-                    sm:min-h-12
-                    sm:px-5
-                    sm:py-3.5
-                    sm:text-sm
-                  "
-                >
-                  Start a Project
+  data-aos="fade-up"
+  data-aos-delay="180"
+  className="
+    mt-8
+    flex
+    w-full
+    max-w-full
+    items-center
+    gap-2
+    overflow-hidden
+    rounded-full
+    border
+    border-white/15
+    bg-black/20
+    p-1.5
+    shadow-[0_18px_55px_rgba(0,0,0,.22)]
+    backdrop-blur-xl
 
-                  <FiArrowUpRight
-                    className="
-                      transition
-                      group-hover:-translate-y-0.5
-                      group-hover:translate-x-0.5
-                    "
-                  />
-                </Link>
+    sm:w-fit
+    sm:gap-2.5
+  "
+>
+  {/* =====================================================
+      START A PROJECT
+  ===================================================== */}
 
-                <Link
-                  to="/work"
-                  className="
-                    group
-                    inline-flex
-                    min-h-11
-                    items-center
-                    justify-center
-                    gap-1.5
-                    rounded-full
-                    border
-                    border-white/15
-                    bg-white/10
-                    px-4
-                    py-3
-                    text-xs
-                    font-bold
-                    text-white
-                    backdrop-blur-xl
-                    transition
-                    duration-200
-                    hover:-translate-y-0.5
-                    hover:bg-white/15
-                    active:scale-[.95]
-                    focus:outline-none
-                    focus:ring-4
-                    focus:ring-white/10
-                    sm:min-h-12
-                    sm:px-5
-                    sm:py-3.5
-                    sm:text-sm
-                  "
-                >
-                  Explore our work
+  <Link
+    to="/contact"
+    className="
+      anime-shine
+      group
+      inline-flex
+      min-w-0
+      flex-1
+      items-center
+      justify-center
+      gap-1.5
+      overflow-hidden
+      rounded-full
 
-                  <FiArrowRight
-                    className="
-                      transition
-                      group-hover:translate-x-1
-                    "
-                  />
-                </Link>
-              </div>
+      bg-blue-600
+      px-3
+      py-2.5
+
+      text-[11px]
+      font-bold
+      leading-none
+      text-white
+
+      shadow-[0_8px_25px_rgba(37,99,235,.28)]
+
+      transition-all
+      duration-300
+
+      hover:-translate-y-0.5
+      hover:bg-blue-500
+      hover:shadow-[0_12px_32px_rgba(37,99,235,.35)]
+
+      active:scale-[.97]
+
+      focus:outline-none
+      focus:ring-4
+      focus:ring-blue-500/20
+
+      sm:min-w-[145px]
+      sm:flex-none
+      sm:px-4
+      sm:py-3
+      sm:text-xs
+
+      md:min-w-[155px]
+      md:px-5
+      md:py-3.5
+      md:text-sm
+    "
+  >
+    <span className="truncate">
+      Start a Project
+    </span>
+
+    <FiArrowUpRight
+      className="
+        h-3.5
+        w-3.5
+        shrink-0
+
+        transition-transform
+        duration-300
+
+        group-hover:-translate-y-0.5
+        group-hover:translate-x-0.5
+
+        sm:h-4
+        sm:w-4
+      "
+    />
+  </Link>
+
+
+  {/* =====================================================
+      EXPLORE OUR WORK
+  ===================================================== */}
+
+  <Link
+    to="/work"
+    className="
+      group
+      inline-flex
+      min-w-0
+      flex-1
+      items-center
+      justify-center
+      gap-1.5
+      overflow-hidden
+      rounded-full
+
+      border
+      border-white/15
+
+      bg-white/10
+
+      px-3
+      py-2.5
+
+      text-[11px]
+      font-bold
+      leading-none
+      text-white
+
+      backdrop-blur-xl
+
+      transition-all
+      duration-300
+
+      hover:-translate-y-0.5
+      hover:border-white/25
+      hover:bg-white/15
+
+      active:scale-[.97]
+
+      focus:outline-none
+      focus:ring-4
+      focus:ring-white/10
+
+      sm:min-w-[145px]
+      sm:flex-none
+      sm:px-4
+      sm:py-3
+      sm:text-xs
+
+      md:min-w-[155px]
+      md:px-5
+      md:py-3.5
+      md:text-sm
+    "
+  >
+    <span className="truncate">
+      Explore our work
+    </span>
+
+    <FiArrowRight
+      className="
+        h-3.5
+        w-3.5
+        shrink-0
+
+        transition-transform
+        duration-300
+
+        group-hover:translate-x-1
+
+        sm:h-4
+        sm:w-4
+      "
+    />
+  </Link>
+</div>
 
               {/* ==================================================
                   BENEFITS
