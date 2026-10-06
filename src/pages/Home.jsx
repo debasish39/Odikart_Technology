@@ -1150,191 +1150,331 @@ export default function Home() {
               </Link>
             </div>
 
-            <div
-              data-aos="fade-left"
-              className="
-                relative
-                grid
-                gap-4
-                sm:grid-cols-2
-              "
-            >
-              <div
-                className="
-                  anime-shine
-                  relative
-                  overflow-hidden
-                  rounded-[2rem]
-                  bg-slate-950
-                  p-7
-                  text-white
-                  shadow-[0_25px_70px_rgba(15,23,42,.15)]
-                  sm:row-span-2
-                  sm:min-h-[410px]
-                "
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=85"
-                  alt=""
-                  className="
-                    absolute
-                    inset-0
-                    h-full
-                    w-full
-                    object-cover
-                    opacity-25
-                  "
-                />
+          <div
+  data-aos="fade-left"
+  className="
+    relative
+    grid
+    gap-4
+    sm:grid-cols-2
+  "
+>
+  {/* MAIN FEATURE CARD */}
+  <div
+    className="
+      group
+      anime-shine
+      relative
+      min-h-[430px]
+      overflow-hidden
+      rounded-[2rem]
+      bg-slate-950
+      p-6
+      text-white
+      shadow-[0_25px_80px_rgba(15,23,42,.16)]
+      sm:row-span-2
+      sm:p-7
+    "
+  >
+    {/* Background image */}
+    <img
+      src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1400&q=90"
+      alt=""
+      aria-hidden="true"
+      className="
+        absolute
+        inset-0
+        h-full
+        w-full
+        object-cover
+        opacity-45
+        transition-transform
+        duration-[1200ms]
+        ease-out
+        group-hover:scale-105
+      "
+    />
 
-                <div
-                  className="
-                    absolute
-                    inset-0
-                    bg-gradient-to-br
-                    from-slate-950/95
-                    via-slate-950/85
-                    to-slate-900/80
-                  "
-                />
+    {/* Dark readability gradient */}
+    <div
+      className="
+        absolute
+        inset-0
+        bg-gradient-to-b
+        from-slate-950/20
+        via-slate-950/35
+        to-slate-950/95
+      "
+    />
 
-                <div
-                  className="
-                    relative
-                    flex
-                    h-full
-                    min-h-[350px]
-                    flex-col
-                    justify-between
-                  "
-                >
-                  <div
-                    className="
-                      grid
-                      h-12
-                      w-12
-                      place-items-center
-                      rounded-2xl
-                      bg-blue-500
-                      text-xl
-                      shadow-lg
-                      shadow-blue-500/30
-                    "
-                  >
-                    <FiZap />
-                  </div>
+    {/* Blue ambient glow */}
+    <div
+      className="
+        pointer-events-none
+        absolute
+        -right-20
+        -top-20
+        h-48
+        w-48
+        rounded-full
+        bg-blue-500/20
+        blur-3xl
+        transition
+        duration-700
+        group-hover:bg-cyan-400/25
+      "
+    />
 
-                  <div>
-                    <p
-                      className="
-                        text-[10px]
-                        font-black
-                        uppercase
-                        tracking-[.2em]
-                        text-cyan-300
-                      "
-                    >
-                      Product mindset
-                    </p>
+    {/* Top content */}
+    <div className="relative flex items-start justify-between">
+      <div
+        className="
+          grid
+          h-12
+          w-12
+          place-items-center
+          rounded-2xl
+          border
+          border-white/15
+          bg-white/10
+          text-xl
+          text-cyan-300
+          shadow-[0_10px_30px_rgba(6,182,212,.12)]
+          backdrop-blur-xl
+          transition-all
+          duration-300
+          group-hover:-translate-y-1
+          group-hover:border-cyan-300/30
+          group-hover:bg-cyan-400/15
+        "
+      >
+        <FiZap />
+      </div>
 
-                    <h3
-                      className="
-                        mt-3
-                        text-2xl
-                        font-black
-                      "
-                    >
-                      Clean ideas.
-                      <br />
-                      Clear execution.
-                    </h3>
+      <span
+        className="
+          rounded-full
+          border
+          border-white/15
+          bg-white/10
+          px-3
+          py-1.5
+          text-[10px]
+          font-bold
+          uppercase
+          tracking-[.18em]
+          text-white/70
+          backdrop-blur-md
+        "
+      >
+        01
+      </span>
+    </div>
 
-                    <p
-                      className="
-                        mt-3
-                        text-sm
-                        leading-6
-                        text-slate-300
-                      "
-                    >
-                      Every screen, API and interaction
-                      should have a reason to exist.
-                    </p>
-                  </div>
-                </div>
-              </div>
+    {/* Bottom content */}
+    <div
+      className="
+        relative
+        mt-24
+        flex
+        min-h-[270px]
+        flex-col
+        justify-end
+      "
+    >
+      <p
+        className="
+          text-[10px]
+          font-black
+          uppercase
+          tracking-[.22em]
+          text-cyan-300
+        "
+      >
+        Product mindset
+      </p>
 
-              {[
-                [
-                  FiLayers,
-                  "Design",
-                  "Interfaces that feel natural.",
-                ],
-                [
-                  FiShield,
-                  "Engineering",
-                  "Reliable foundations that scale.",
-                ],
-              ].map(
-                ([Icon, title, text], index) => (
-                  <div
-                    key={title}
-                    data-aos="zoom-in"
-                    data-aos-delay={index * 100}
-                    className="
-                      group
-                      rounded-[2rem]
-                      border
-                      border-slate-200
-                      bg-white
-                      p-6
-                      shadow-[0_12px_40px_rgba(15,23,42,.05)]
-                      transition
-                      hover:-translate-y-1
-                      hover:border-blue-200
-                      hover:shadow-xl
-                    "
-                  >
-                    <div
-                      className="
-                        grid
-                        h-11
-                        w-11
-                        place-items-center
-                        rounded-2xl
-                        bg-blue-50
-                        text-blue-600
-                        transition
-                        group-hover:bg-blue-600
-                        group-hover:text-white
-                      "
-                    >
-                      <Icon />
-                    </div>
+      <h3
+        className="
+          mt-3
+          max-w-sm
+          text-3xl
+          font-black
+          leading-[1.05]
+          tracking-[-0.045em]
+          sm:text-[2.15rem]
+        "
+      >
+        Clean ideas.
+        <br />
+        Clear execution.
+      </h3>
 
-                    <h3
-                      className="
-                        mt-6
-                        font-bold
-                        text-slate-950
-                      "
-                    >
-                      {title}
-                    </h3>
+      <p
+        className="
+          mt-4
+          max-w-sm
+          text-sm
+          leading-6
+          text-slate-300
+        "
+      >
+        Every screen, API and interaction should have a reason to
+        exist — turning ideas into focused digital products.
+      </p>
 
-                    <p
-                      className="
-                        mt-2
-                        text-sm
-                        leading-6
-                        text-slate-500
-                      "
-                    >
-                      {text}
-                    </p>
-                  </div>
-                )
-              )}
-            </div>
+      {/* Small visual indicator */}
+      <div className="mt-6 flex items-center gap-2">
+        <span className="h-1.5 w-10 rounded-full bg-cyan-400" />
+        <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
+        <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
+      </div>
+    </div>
+  </div>
+
+  {/* SMALL CARDS */}
+  {[
+    {
+      Icon: FiLayers,
+      number: "02",
+      title: "Design",
+      text: "Interfaces that feel natural, purposeful and easy to use.",
+    },
+    {
+      Icon: FiShield,
+      number: "03",
+      title: "Engineering",
+      text: "Reliable foundations built to perform, evolve and scale.",
+    },
+  ].map(({ Icon, number, title, text }, index) => (
+    <div
+      key={title}
+      data-aos="zoom-in"
+      data-aos-delay={index * 120}
+      className="
+        group
+        anime-shine
+        relative
+        overflow-hidden
+        rounded-[2rem]
+        border
+        border-slate-200
+        bg-white
+        p-6
+        shadow-[0_12px_45px_rgba(15,23,42,.055)]
+        transition-all
+        duration-500
+        hover:-translate-y-1.5
+        hover:border-blue-200
+        hover:shadow-[0_20px_55px_rgba(37,99,235,.10)]
+      "
+    >
+      {/* Soft hover glow */}
+      <div
+        className="
+          pointer-events-none
+          absolute
+          -right-12
+          -top-12
+          h-28
+          w-28
+          rounded-full
+          bg-blue-100/70
+          blur-2xl
+          opacity-0
+          transition
+          duration-500
+          group-hover:opacity-100
+        "
+      />
+
+      {/* Header */}
+      <div className="relative flex items-start justify-between">
+        <div
+          className="
+            grid
+            h-12
+            w-12
+            place-items-center
+            rounded-2xl
+            bg-blue-50
+            text-lg
+            text-blue-600
+            transition-all
+            duration-300
+            group-hover:bg-blue-600
+            group-hover:text-white
+            group-hover:shadow-[0_10px_25px_rgba(37,99,235,.22)]
+          "
+        >
+          <Icon />
+        </div>
+
+        <span
+          className="
+            text-[10px]
+            font-black
+            tracking-[.18em]
+            text-slate-300
+            transition
+            group-hover:text-blue-400
+          "
+        >
+          {number}
+        </span>
+      </div>
+
+      {/* Content */}
+      <div className="relative mt-7">
+        <h3
+          className="
+            text-lg
+            font-black
+            tracking-[-0.02em]
+            text-slate-950
+          "
+        >
+          {title}
+        </h3>
+
+        <p
+          className="
+            mt-2
+            max-w-xs
+            text-sm
+            leading-6
+            text-slate-500
+          "
+        >
+          {text}
+        </p>
+      </div>
+
+      {/* Bottom line */}
+      <div
+        className="
+          relative
+          mt-7
+          h-px
+          w-full
+          overflow-hidden
+          bg-slate-100
+        "
+      >
+        <div
+          className="
+            h-full
+            w-0
+            bg-blue-500
+            transition-all
+            duration-500
+            group-hover:w-1/3
+          "
+        />
+      </div>
+    </div>
+  ))}
+</div>
           </div>
         </div>
 
